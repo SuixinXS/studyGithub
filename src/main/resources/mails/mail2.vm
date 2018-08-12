@@ -1,0 +1,20 @@
+<html>
+<body>
+<h3>${emp.ename},刚刚找回密码!</h3>
+
+<p>您刚刚在靖凯开源办公网上申请找回密码，你的密码是：【${emp.pwdword}】，请注意信息安全。</p>
+
+
+<p>办公系统的访问地址是:<a href="http://ossjk.cn:8080/oa">http://ossjk.cn:8080/oa</a></p>
+<br>
+<p>公司培训网站是:<a href="http://ossjk.com">http://ossjk.com</a></p>
+<br>
+<p>公司官网是:<a href="http://ossjk.cn">http://ossjk.cn</a></p>
+<br><br>
+
+              <img src="http://www.ossjk.cn:8080/oa/images/doIT.png"><br>
+<p>杨佬祝你开心工作每一天  :)</p>
+ 
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+@charset "utf-8";
+body{ margin:0px; padding:0px; text-decoration:none; font-size:12px; font-family:"宋体";}
+a {text-decoration:none;}
+a:hover {text-decoration:none;}
+a:visited {text-decoration:none;}
+.HeadLine{ font-size:12px; text-decoration:none; background:#fafafa; border-bottom:1px solid #e0e0e0;}
+form,ul,li,h1,h2,h3,h4,h5,h6,h7,p{ margin:0px auto; padding:0px;}
+ul{ list-style:none;}
+img{ margin:0px; padding:0px; border:0;}
+
+
+/*头部样式*/
+.Logo{ font-size:16px; font-weight:bold; color:#FFFFFF; text-align:right;}
+#Nav{ width:550px; height:23px; margin-bottom:1px;}
+
+#Nav ul{ margin:0px; padding:0px;}
+#Nav ul li{ float:left; display:block; text-align:center; width:83px; height:23px; line-height:23px; background:url(../images/Bg/NavBg.gif) no-repeat bottom; margin:0 3px 0 0;}
+#Nav ul li img{ _float:left; _padding:5px 0 0 8px; }
+#Nav ul li a{ font-size:12px; text-decoration:none; color:#000000;}
+#Nav ul li a:hover{ text-decoration:underline; color:#ff6600;}
+.HeadInfo{ font-size:12px; text-decoration:none; color:#FFFFFF; margin-right:10px;}
+.HeadInfo a{ font-size:12px; text-decoration:none; color:#FFFFFF;}
+.HeadInfo a:hover{ text-decoration:underline; color:#FFFF00;}
+.HeadInfo span{ font-weight:bold; font-size:12px; text-decoration:none;}
+
+
+
+/*头部样式END*/
+
+/*左边样式*/
+.LeftBox{ font-size:12px; text-decoration:none; width:158px; border-right:1px #246EA9 solid;}
+.LeftBox h1{ font-size:14px; font-weight:bold; text-decoration:none; background:url(../images/Bg/LeftMenuBg.gif) no-repeat;height:29px; line-height:29px; color:#7d7d7d; padding-left:10px; _padding-top:6px; cursor:pointer;}
+.LeftBox  ul{ margin:0px; padding:0px;}
+.LeftBox  ul li h2{ font-weight:bold; font-size:12px; text-decoration:none; }
+.LeftBox ul li{ margin:0px; padding:0px; height:30px; line-height:30px;  padding-left:10px;}
+.LeftBox ul li img{ float:left; padding-top:11px;}
+.LeftBox ul li a{ padding-left:10px; font-size:12px;text-decoration:none; color:#000000;}
+.Menuover{ background:url(../images/Bg/MenuOver.gif) no-repeat center ; font-weight:bold; }
+.LeftBox ul li a .zise{ font-size:12px; text-decoration:none; color:#990099;}
+#MenuUl1 li a span{ font-family:"黑体", "宋体";font-size:14px; margin-left:3px;}
+

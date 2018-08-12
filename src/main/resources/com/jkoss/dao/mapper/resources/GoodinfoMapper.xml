@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jkoss.dao.GoodinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jkoss.pojo.Goodinfo" >
+    <id column="good_id" property="good_id" jdbcType="INTEGER" />
+    <result column="regist_id" property="regist_id" jdbcType="INTEGER" />
+    <result column="good_name" property="good_name" jdbcType="VARCHAR" />
+    <result column="good_type" property="good_type" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    good_id, regist_id, good_name, good_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodinfo
+    where good_id = #{good_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goodinfo
+    where good_id = #{good_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jkoss.pojo.Goodinfo" >
+    insert into goodinfo (good_id, regist_id, good_name, 
+      good_type)
+    values (#{good_id,jdbcType=INTEGER}, #{regist_id,jdbcType=INTEGER}, #{good_name,jdbcType=VARCHAR}, 
+      #{good_type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jkoss.pojo.Goodinfo" >
+    insert into goodinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="good_id != null" >
+        good_id,
+      </if>
+      <if test="regist_id != null" >
+        regist_id,
+      </if>
+      <if test="good_name != null" >
+        good_name,
+      </if>
+      <if test="good_type != null" >
+        good_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="good_id != null" >
+        #{good_id,jdbcType=INTEGER},
+      </if>
+      <if test="regist_id != null" >
+        #{regist_id,jdbcType=INTEGER},
+      </if>
+      <if test="good_name != null" >
+        #{good_name,jdbcType=VARCHAR},
+      </if>
+      <if test="good_type != null" >
+        #{good_type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jkoss.pojo.Goodinfo" >
+    update goodinfo
+    <set >
+      <if test="regist_id != null" >
+        regist_id = #{regist_id,jdbcType=INTEGER},
+      </if>
+      <if test="good_name != null" >
+        good_name = #{good_name,jdbcType=VARCHAR},
+      </if>
+      <if test="good_type != null" >
+        good_type = #{good_type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where good_id = #{good_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jkoss.pojo.Goodinfo" >
+    update goodinfo
+    set regist_id = #{regist_id,jdbcType=INTEGER},
+      good_name = #{good_name,jdbcType=VARCHAR},
+      good_type = #{good_type,jdbcType=INTEGER}
+    where good_id = #{good_id,jdbcType=INTEGER}
+  </update>
+</mapper>

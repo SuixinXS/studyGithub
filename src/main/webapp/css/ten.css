@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS Document */
+* { margin:0; padding:0; list-style:none; font-family:"微软雅黑","宋体"; font-size:12px; }
+body { background:#FFF; }
+img { border:none; }
+.dis_none{ display:none;}
+.red { color:red; }
+.must_input { font-weight:bold; color:red; }
+.green { color:green; }
+.blue { color:blue; }
+.gray { color:gray; }
+.purple { color:purple; }
+.clear { clear:both; }
+a { text-decoration:none; color:#000; }
+a:hover { text-decoration:underline; color:#05159C; }
+p { line-height:18px; }
+#top_main { background:url(images/top_bg.jpg) repeat-x; }
+#top { width:980px; margin:0 auto; height:57px; }
+#top_name { width:200px; height:48px; float:left; background:url(images/top_name.jpg) no-repeat; }
+#top_menu { float:right; height:48px; }
+#top_menu ul li { float:right; width:60px; line-height:48px; }
+#top_menu ul li a { font-weight:bold; color:#FFF; display:block; }
+#top_menu ul li a:hover { text-decoration:underline; }
+#content_main { padding-top:2px; }
+#content_title { display:none; }
+#content_body { width:980px; margin:0 auto; padding:10px 0; }
+#content_bottom { display:none; }
+#left { float:left; width:140px; }
+.left_title { height:28px; line-height:28px; background:url(images/left_title_bg.jpg) no-repeat; }
+.left_title h2 { font-size:14px; color:#05159C; text-align:center; }
+.left_body { overflow:hidden; zoom:1; padding:5px; border:1px solid #ABB8C4; border-top:none; background:#FFF; }
+.left_nav { text-align:center; }
+.left_nav li { float:left; width:62px; text-align:center; line-height:22px; padding:1px; }
+.left_nav li a { background:url(images/left_nav.jpg) no-repeat; display:block; color:#444444; }
+.left_nav li a:hover { background:url(images/left_nav_hover.jpg) no-repeat; color:#FFF; text-decoration:none; }
+.left_nav li .current_nav { background:url(images/left_nav_hover.jpg) no-repeat; color:#FFF; text-decoration:none; }
+.left_bottom { height:10px; }
+#right { float:center; width:830px; }
+.right_title { background:url(images/right_title_bg.jpg) repeat-x; border:1px solid #ABB8C4; border-bottom:none; height:28px; line-height:28px; padding:0 10px; }
+.right_title h2 { font-size:14px; color:#05159C; }
+.right_body { padding:10px; overflow:hidden; zoom:1; border:1px solid #ABB8C4; border-top:none; background:#FFF; }
+.right_body h2 { font-size:16px; line-height:40px; color:red; padding-left:20px; }
+.right_bottom { height:10px; }
+#bottom_main { }
+#bottom { width:980px; margin:0 auto; text-align:right; border-top:1px solid #CDCDCD; padding:10px 0; color:#CDCDCD; font-style:italic; font-size:14px; }
+/*表格开始*/
+.common_table { border-collapse:collapse; width:100%; }
+.common_table td { padding:5px; border:1px solid #CBD0D4; }
+.common_table td td { border:none; padding:0; }
+.common_table tr:hover td { background:#F2F2F2; }
+.common_table th { text-align:center; border:1px solid #CBD0D4; background:url(images/th_bg.jpg) repeat-x; padding:0 5px; color:#05159C; height:26px; line-height:26px; }
+/*表单*/
+.form_text { padding:5px; border-top:1px solid #707070; border-left:1px solid #707070; border-right:1px solid #CECECE; border-bottom:1px solid #CECECE; }
+.form_select { padding:4px; border-top:1px solid #707070; border-left:1px solid #707070; border-right:1px solid #CECECE; border-bottom:1px solid #CECECE; }
+.form_textarea { width:90%; height:60px; padding:3px 5px; border:1px solid #CCC; }
+.form_checkbox { padding:0; margin:0; }
+.form_submit { height:28px; background:#043D97; color:#FFF; border:none;cursor:pointer; padding:0 10px;}
+.form_submit:hover { background:red;}
+.form_button { padding:0 5px;height:24px; background:#043D97; color:#FFF; border:1px solid #696969; cursor:pointer; }
+.form_file { padding:5px; border-top:1px solid #707070; border-left:1px solid #707070; border-right:1px solid #CECECE; border-bottom:1px solid #CECECE; background:url(images/form_text.jpg) top repeat-x; }
+.form_editor { width:670px; height:200px;visibility:hidden; }
+/*分页样式*/
+.page_turner { padding:4px 0px 0px 1px; float:right; }
+.page_turner a, .page_turner span { float:left; display:block; border:1px solid #CC0001; padding:3px 5px; margin-left:4px; line-height:16px; }
+.page_turner a:link, .page_turner a:visited { text-decoration:none; }
+.page_turner a:hover, .page_turner a.c { background:#CC0001; color:#FFF; }
+#total { color:red; }
+/*后台登陆*/
+#login_body{ }
+#login { width:505px; margin:0 auto;}
+#login_title{ height:280px;}
+#login_body{ height:200px; padding:60px 0 0 130px;}
+#login_bottom{}
+#login_left { float:left; width:300px; padding-left:40px; font-size:14px; color:#8E8E8E; }
+#login_right { float:right; width:220px; padding-right:20px; }
+#login table { border-collapse:collapse; }
+#login_button { background:url(images/login_button.gif) no-repeat; padding:0; margin:0; border:none; width:98px; height:33px; color:#FFF; font-size:14px; cursor:pointer; }
+#login table td { padding:3px; border:none; font-weight:bold; }
+
+

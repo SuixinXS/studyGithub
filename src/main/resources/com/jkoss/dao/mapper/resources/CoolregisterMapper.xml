@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jkoss.dao.CoolregisterMapper">
+	<resultMap id="BaseResultMap"
+		type="com.jkoss.pojo.Coolregister">
+		<id column="regist_id" property="regist_id" jdbcType="INTEGER" />
+		<result column="exe_id" property="exe_id" jdbcType="INTEGER" />
+		<result column="area_id" property="area_id" jdbcType="INTEGER" />
+		<result column="cab_id" property="cab_id" jdbcType="INTEGER" />
+		<result column="dep_id" property="dep_id" jdbcType="INTEGER" />
+		<result column="good_id" property="good_id" jdbcType="INTEGER" />
+		<result column="ctm_id" property="ctm_id" jdbcType="INTEGER" />
+		<result column="regist_begin" property="regist_begin"
+			jdbcType="TIMESTAMP" />
+		<result column="regist_state" property="regist_state"
+			jdbcType="INTEGER" />
+		<result column="regist_paystate" property="regist_paystate"
+			jdbcType="INTEGER" />
+		<result column="regist_cost" property="regist_cost"
+			jdbcType="REAL" />
+		<result column="regist_paytime" property="regist_paytime"
+			jdbcType="TIMESTAMP" />
+		<result column="regist_end" property="regist_end"
+			jdbcType="TIMESTAMP" />
+		<result column="termperature" property="termperature"
+			jdbcType="REAL" />
+		<result column="cooltype" property="cooltype"
+			jdbcType="INTEGER" />
+		<result column="regist_remark" property="regist_remark"
+			jdbcType="VARCHAR" />
+		<result column="operater" property="operater"
+			jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		regist_id, exe_id, area_id, cab_id, dep_id, good_id,
+		ctm_id, regist_begin,
+		regist_state,
+		regist_paystate, regist_cost,
+		regist_paytime, regist_end, termperature, cooltype,
+		regist_remark,
+		operater, phone
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from coolregister
+		where regist_id = #{regist_id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from coolregister
+		where regist_id =
+		#{regist_id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jkoss.pojo.Coolregister">
+		insert into coolregister
+		(regist_id, exe_id, area_id,
+		cab_id, dep_id, good_id,
+		ctm_id,
+		regist_begin, regist_state,
+		regist_paystate, regist_cost,
+		regist_paytime,
+		regist_end, termperature, cooltype,
+		regist_remark,
+		operater, phone
+		)
+		values (#{regist_id,jdbcType=INTEGER},
+		#{exe_id,jdbcType=INTEGER},
+		#{area_id,jdbcType=INTEGER},
+		#{cab_id,jdbcType=INTEGER}, #{dep_id,jdbcType=INTEGER},
+		#{good_id,jdbcType=INTEGER},
+		#{ctm_id,jdbcType=INTEGER},
+		#{regist_begin,jdbcType=TIMESTAMP},
+		#{regist_state,jdbcType=INTEGER},
+		#{regist_paystate,jdbcType=INTEGER}, #{regist_cost,jdbcType=REAL},
+		#{regist_paytime,jdbcType=TIMESTAMP},
+		#{regist_end,jdbcType=TIMESTAMP}, #{termperature,jdbcType=REAL},
+		#{cooltype,jdbcType=INTEGER},
+		#{regist_remark,jdbcType=VARCHAR},
+		#{operater,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.jkoss.pojo.Coolregister" useGeneratedKeys="true"
+		keyProperty="regist_id">
+		insert into coolregister
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="regist_id != null">
+				regist_id,
+			</if>
+			<if test="exe_id != null">
+				exe_id,
+			</if>
+			<if test="area_id != null">
+				area_id,
+			</if>
+			<if test="cab_id != null">
+				cab_id,
+			</if>
+			<if test="dep_id != null">
+				dep_id,
+			</if>
+			<if test="good_id != null">
+				good_id,
+			</if>
+			<if test="ctm_id != null">
+				ctm_id,
+			</if>
+			<if test="regist_begin != null">
+				regist_begin,
+			</if>
+			<if test="regist_state != null">
+				regist_state,
+			</if>
+			<if test="regist_paystate != null">
+				regist_paystate,
+			</if>
+			<if test="regist_cost != null">
+				regist_cost,
+			</if>
+			<if test="regist_paytime != null">
+				regist_paytime,
+			</if>
+			<if test="regist_end != null">
+				regist_end,
+			</if>
+			<if test="termperature != null">
+				termperature,
+			</if>
+			<if test="cooltype != null">
+				cooltype,
+			</if>
+			<if test="regist_remark != null">
+				regist_remark,
+			</if>
+			<if test="operater != null">
+				operater,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="regist_id != null">
+				#{regist_id,jdbcType=INTEGER},
+			</if>
+			<if test="exe_id != null">
+				#{exe_id,jdbcType=INTEGER},
+			</if>
+			<if test="area_id != null">
+				#{area_id,jdbcType=INTEGER},
+			</if>
+			<if test="cab_id != null">
+				#{cab_id,jdbcType=INTEGER},
+			</if>
+			<if test="dep_id != null">
+				#{dep_id,jdbcType=INTEGER},
+			</if>
+			<if test="good_id != null">
+				#{good_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctm_id != null">
+				#{ctm_id,jdbcType=INTEGER},
+			</if>
+			<if test="regist_begin != null">
+				#{regist_begin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="regist_state != null">
+				#{regist_state,jdbcType=INTEGER},
+			</if>
+			<if test="regist_paystate != null">
+				#{regist_paystate,jdbcType=INTEGER},
+			</if>
+			<if test="regist_cost != null">
+				#{regist_cost,jdbcType=REAL},
+			</if>
+			<if test="regist_paytime != null">
+				#{regist_paytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="regist_end != null">
+				#{regist_end,jdbcType=TIMESTAMP},
+			</if>
+			<if test="termperature != null">
+				#{termperature,jdbcType=REAL},
+			</if>
+			<if test="cooltype != null">
+				#{cooltype,jdbcType=INTEGER},
+			</if>
+			<if test="regist_remark != null">
+				#{regist_remark,jdbcType=VARCHAR},
+			</if>
+			<if test="operater != null">
+				#{operater,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.jkoss.pojo.Coolregister">
+		update coolregister
+		<set>
+			<if test="exe_id != null">
+				exe_id = #{exe_id,jdbcType=INTEGER},
+			</if>
+			<if test="area_id != null">
+				area_id = #{area_id,jdbcType=INTEGER},
+			</if>
+			<if test="cab_id != null">
+				cab_id = #{cab_id,jdbcType=INTEGER},
+			</if>
+			<if test="dep_id != null">
+				dep_id = #{dep_id,jdbcType=INTEGER},
+			</if>
+			<if test="good_id != null">
+				good_id = #{good_id,jdbcType=INTEGER},
+			</if>
+			<if test="ctm_id != null">
+				ctm_id = #{ctm_id,jdbcType=INTEGER},
+			</if>
+			<if test="regist_begin != null">
+				regist_begin = #{regist_begin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="regist_state != null">
+				regist_state = #{regist_state,jdbcType=INTEGER},
+			</if>
+			<if test="regist_paystate != null">
+				regist_paystate = #{regist_paystate,jdbcType=INTEGER},
+			</if>
+			<if test="regist_cost != null">
+				regist_cost = #{regist_cost,jdbcType=REAL},
+			</if>
+			<if test="regist_paytime != null">
+				regist_paytime = #{regist_paytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="regist_end != null">
+				regist_end = #{regist_end,jdbcType=TIMESTAMP},
+			</if>
+			<if test="termperature != null">
+				termperature = #{termperature,jdbcType=REAL},
+			</if>
+			<if test="cooltype != null">
+				cooltype = #{cooltype,jdbcType=INTEGER},
+			</if>
+			<if test="regist_remark != null">
+				regist_remark = #{regist_remark,jdbcType=VARCHAR},
+			</if>
+			<if test="operater != null">
+				operater = #{operater,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where regist_id = #{regist_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.jkoss.pojo.Coolregister">
+		update coolregister
+		set exe_id =
+		#{exe_id,jdbcType=INTEGER},
+		area_id = #{area_id,jdbcType=INTEGER},
+		cab_id = #{cab_id,jdbcType=INTEGER},
+		dep_id =
+		#{dep_id,jdbcType=INTEGER},
+		good_id = #{good_id,jdbcType=INTEGER},
+		ctm_id = #{ctm_id,jdbcType=INTEGER},
+		regist_begin =
+		#{regist_begin,jdbcType=TIMESTAMP},
+		regist_state =
+		#{regist_state,jdbcType=INTEGER},
+		regist_paystate =
+		#{regist_paystate,jdbcType=INTEGER},
+		regist_cost =
+		#{regist_cost,jdbcType=REAL},
+		regist_paytime =
+		#{regist_paytime,jdbcType=TIMESTAMP},
+		regist_end =
+		#{regist_end,jdbcType=TIMESTAMP},
+		termperature =
+		#{termperature,jdbcType=REAL},
+		cooltype = #{cooltype,jdbcType=INTEGER},
+		regist_remark = #{regist_remark,jdbcType=VARCHAR},
+		operater =
+		#{operater,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR}
+		where
+		regist_id = #{regist_id,jdbcType=INTEGER}
+	</update>
+
+	<select id="lsEnCold" parameterType="com.jkoss.tool.Page"
+		resultType="com.jkoss.pojo.vo.CoolregisterVo">
+		SELECT
+		a.regist_id,a.area_id,a.cab_id,a.dep_id,a.good_id,a.ctm_id,a.regist_begin,a.regist_state,a.regist_paystate,a.regist_cost,a.regist_paytime,a.regist_end,a.termperature,a.cooltype,a.regist_remark,a.operater,a.phone,
+		c.company_name,c.ctm_name,c.ctm_phone,b.exe_begin,b.exe_end,b.coldopera,b.exe_id,
+		d.emp_name,e.emp_id from
+		coolregister as a
+		LEFT JOIN execute as b on
+		a.regist_id=b.regist_id
+		left join customer as c on a.ctm_id=c.ctm_id
+		left join execute2employ as e on b.exe_id=e.exe_id
+		left join employ as
+		d on
+		e.emp_id=d.emp_id
+		<where>
+			<if test="params.coldopera!=null">
+				b.coldopera=#{params.coldopera,jdbcType=INTEGER}
+			</if>
+
+			<if test="params.bTime!=null">
+				and b.exe_begin between #{params.time,jdbcType=TIMESTAMP}
+				and
+				#{params.time1,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="enColdByRid" parameterType="java.lang.Integer"
+		resultType="com.jkoss.pojo.vo.CoolregisterVo">
+		SELECT
+		a.regist_id,a.area_id,a.cab_id,a.dep_id,a.good_id,a.ctm_id,a.regist_begin,a.regist_state,a.regist_paystate,a.regist_cost,a.regist_paytime,a.regist_end,a.termperature,a.cooltype,a.regist_remark,a.operater,a.phone,
+		c.company_name,c.ctm_name,c.ctm_phone,b.exe_begin,b.exe_end,b.coldopera,b.exe_id,
+		d.emp_name,e.emp_id from
+		coolregister as a
+		LEFT JOIN execute as b on
+		a.regist_id=b.regist_id
+		left join customer as c on a.ctm_id=c.ctm_id
+		left join execute2employ as e on b.exe_id=e.exe_id
+		left join employ as
+		d on
+		e.emp_id=d.emp_id
+		where
+		b.coldopera=0
+		and
+		a.regist_id=#{rid}
+
+	</select>
+
+
+
+	<select id="enCold1" parameterType="java.lang.Integer"
+		resultType="com.jkoss.pojo.vo.CoolregisterVo">
+		SELECT
+		a.regist_id,a.area_id,a.cab_id,a.dep_id,a.good_id,a.ctm_id,a.regist_begin,a.regist_state,a.regist_paystate,a.regist_cost,a.regist_paytime,a.regist_end,a.termperature,a.cooltype,a.regist_remark,a.operater,a.phone,
+		c.company_name,c.ctm_name,c.ctm_phone,b.exe_begin,b.exe_end,b.coldopera,b.exe_id,f.dep_address,f.dep_name,
+		d.emp_name,e.emp_id from
+		coolregister as a
+		LEFT JOIN execute as b on
+		a.regist_id=b.regist_id
+		left join customer as c on a.ctm_id=c.ctm_id
+		left join execute2employ as e on b.exe_id=e.exe_id
+		left join employ as
+		d on
+		e.emp_id=d.emp_id
+		left join depot as f on f.dep_id=a.dep_id
+		where
+		b.exe_id=#{eid} and b.coldopera=0 or b.coldopera=2
+	</select>
+
+	<select id="lsCold"
+		resultType="com.jkoss.pojo.vo.CoolregisterVoCtm"
+		parameterType="com.jkoss.tool.Page">
+		select a.*,b.company_name,b.ctm_name,b.ctm_phone
+		from
+		coolregister as a
+		left join customer as b
+		on a.ctm_id=b.ctm_id
+		<where>
+			<if test="params.regist_id != null and params.regist_id !=99">
+				a.regist_id = #{params.regist_id,jdbcType=INTEGER}
+			</if>
+
+		</where>
+		order by a.regist_id desc
+	</select>
+	<select id="showReg"
+		resultType="com.jkoss.pojo.vo.CoolregisterVo">
+		SELECT
+		a.regist_id,a.regist_paystate,c.good_name,c.good_type from
+		coolregister as a left JOIN execute as b on a.regist_id=b.regist_id
+		LEFT JOIN goodinfo as c on a.regist_id=c.regist_id
+		where a.area_id is
+		null and a.regist_state!=4
+	</select>
+
+
+	<select id="ddSelByEmpId" parameterType="com.jkoss.tool.Page"
+		resultType="com.jkoss.pojo.vo.CoolregisterVo">
+		SELECT
+		a.exe_id,a.regist_id,a.exe_begin,d.good_name,d.good_type,c.area_id,c.cab_id,c.dep_id,e.dep_address,a.coldopera
+		FROM
+		execute as a LEFT JOIN execute2employ as b on a.exe_id=b.exe_id
+		LEFT JOIN coolregister as c on c.regist_id=a.regist_id
+		left join goodinfo as d on d.regist_id=c.regist_id
+		LEFT JOIN depot as e on e.dep_id=c.dep_id
+
+		<where>
+			b.emp_id=#{params.emp_id} and a.exe_end is null
+
+			<if test="params.bTime!=null">
+				and a.exe_begin between #{params.time,jdbcType=TIMESTAMP}
+				and #{params.time1,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+
+	</select>
+
+
+</mapper>

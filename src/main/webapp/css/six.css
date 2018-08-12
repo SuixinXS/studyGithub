@@ -1,0 +1,58 @@
+a:link {
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+a:visited {
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+a:hover {
+	font-size: 12px;
+	font-weight: normal;
+	color: #FF0000;
+	text-decoration: underline blink;
+}
+a:active {
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+}
+body,td,th {
+	font-size: 12px;
+}
+.STYLE2 {color: #000000}
+.STYLE3 {color: #FF0000}
+.STYLE7 {color: #0000FF}
+.style21 {	FONT-WEIGHT: bold; COLOR: #ff0000
+}
+.STYLE22 {
+	font-size: 14px;
+	font-weight: bold;
+	color: #FF3F00;
+}
+.STYLE4 {color: #2A1FFF}
+form {margin:0px;}
+.Title{
+	background-color:#CCCCCC;
+	width:auto;
+}
+input{
+	height:20;
+	border-bottom-width:1px;
+	border-left-width:1px;
+	border-top-width:1px;
+	border-right-width:1px;
+	border-spacing:1;
+	background-color:#dddddd;
+	font-size:13px;
+}
+.inputwidth{
+	width:50;
+}
+ select   {   
+  	background-color:#dddddd;   
+  }  

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jkoss.dao.EmployMapper" >
+  <resultMap id="BaseResultMap" type="com.jkoss.pojo.Employ" >
+    <id column="emp_id" property="emp_id" jdbcType="INTEGER" />
+    <result column="depe_id" property="depe_id" jdbcType="INTEGER" />
+    <result column="job_id" property="job_id" jdbcType="INTEGER" />
+    <result column="emp_name" property="emp_name" jdbcType="VARCHAR" />
+    <result column="emp_sex" property="emp_sex" jdbcType="INTEGER" />
+    <result column="emp_login" property="emp_login" jdbcType="VARCHAR" />
+    <result column="emp_pass" property="emp_pass" jdbcType="VARCHAR" />
+    <result column="emp_phone" property="emp_phone" jdbcType="VARCHAR" />
+    <result column="emp_state" property="emp_state" jdbcType="INTEGER" />
+    <result column="identitily" property="identitily" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="afterschool" property="afterschool" jdbcType="DATE" />
+    <result column="intime" property="intime" jdbcType="DATE" />
+    <result column="emp_remark" property="emp_remark" jdbcType="VARCHAR" />
+    <result column="salary" property="salary" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.jkoss.pojo.vo.EmployVo" >
+    <id column="emp_id" property="emp_id" jdbcType="INTEGER" />
+    <result column="depe_id" property="depe_id" jdbcType="INTEGER" />
+    <result column="job_id" property="job_id" jdbcType="INTEGER" />
+    <result column="emp_name" property="emp_name" jdbcType="VARCHAR" />
+    <result column="emp_sex" property="emp_sex" jdbcType="INTEGER" />
+    <result column="emp_login" property="emp_login" jdbcType="VARCHAR" />
+    <result column="emp_pass" property="emp_pass" jdbcType="VARCHAR" />
+    <result column="emp_phone" property="emp_phone" jdbcType="VARCHAR" />
+    <result column="emp_state" property="emp_state" jdbcType="INTEGER" />
+    <result column="identitily" property="identitily" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="afterschool" property="afterschool" jdbcType="DATE" />
+    <result column="intime" property="intime" jdbcType="DATE" />
+    <result column="emp_remark" property="emp_remark" jdbcType="VARCHAR" />
+    <result column="salary" property="salary" jdbcType="REAL" />
+    <result column="depe_name" property="depe_name" jdbcType="VARCHAR"/>
+    <association property="job" column="job_id" fetchType="eager" javaType="com.jkoss.pojo.vo.JobVo"
+    select="com.jkoss.dao.JobMapper.selectByPrimaryKey2"
+    ></association>
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    emp_id, depe_id, job_id, emp_name, emp_sex, emp_login, emp_pass, emp_phone, 
+    emp_state, identitily, address, school, afterschool, intime, emp_remark, salary
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employ
+    where emp_id = #{emp_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employ
+    where emp_id = #{emp_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jkoss.pojo.Employ" >
+    insert into employ (emp_id, depe_id, 
+      job_id, emp_name, emp_sex, 
+      emp_login, emp_pass, emp_phone, 
+      emp_state, identitily, address, 
+      school, afterschool, intime, 
+      emp_remark, salary)
+    values (#{emp_id,jdbcType=INTEGER}, #{depe_id,jdbcType=INTEGER}, 
+      #{job_id,jdbcType=INTEGER}, #{emp_name,jdbcType=VARCHAR}, #{emp_sex,jdbcType=INTEGER}, 
+      #{emp_login,jdbcType=VARCHAR}, #{emp_pass,jdbcType=VARCHAR}, #{emp_phone,jdbcType=VARCHAR}, 
+      #{emp_state,jdbcType=INTEGER}, #{identitily,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{school,jdbcType=VARCHAR}, #{afterschool,jdbcType=DATE}, #{intime,jdbcType=DATE}, 
+      #{emp_remark,jdbcType=VARCHAR}, #{salary,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jkoss.pojo.Employ" >
+    insert into employ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emp_id != null" >
+        emp_id,
+      </if>
+      <if test="depe_id != null" >
+        depe_id,
+      </if>
+      <if test="job_id != null" >
+        job_id,
+      </if>
+      <if test="emp_name != null" >
+        emp_name,
+      </if>
+      <if test="emp_sex != null" >
+        emp_sex,
+      </if>
+      <if test="emp_login != null" >
+        emp_login,
+      </if>
+      <if test="emp_pass != null" >
+        emp_pass,
+      </if>
+      <if test="emp_phone != null" >
+        emp_phone,
+      </if>
+      <if test="emp_state != null" >
+        emp_state,
+      </if>
+      <if test="identitily != null" >
+        identitily,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="afterschool != null" >
+        afterschool,
+      </if>
+      <if test="intime != null" >
+        intime,
+      </if>
+      <if test="emp_remark != null" >
+        emp_remark,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emp_id != null" >
+        #{emp_id,jdbcType=INTEGER},
+      </if>
+      
+      <if test="depe_id != null" >
+        #{depe_id,jdbcType=INTEGER},
+      </if>
+      <if test="job_id != null" >
+        #{job_id,jdbcType=INTEGER},
+      </if>
+      <if test="emp_name != null" >
+        #{emp_name,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_sex != null" >
+        #{emp_sex,jdbcType=INTEGER},
+      </if>
+      <if test="emp_login != null" >
+        #{emp_login,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_pass != null" >
+        #{emp_pass,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_phone != null" >
+        #{emp_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_state != null" >
+        #{emp_state,jdbcType=INTEGER},
+      </if>
+      <if test="identitily != null" >
+        #{identitily,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="afterschool != null" >
+        #{afterschool,jdbcType=DATE},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=DATE},
+      </if>
+      <if test="emp_remark != null" >
+        #{emp_remark,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jkoss.pojo.Employ" >
+    update employ
+    <set >
+      
+      <if test="depe_id != null" >
+        depe_id = #{depe_id,jdbcType=INTEGER},
+      </if>
+      <if test="job_id != null" >
+        job_id = #{job_id,jdbcType=INTEGER},
+      </if>
+      <if test="emp_name != null" >
+        emp_name = #{emp_name,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_sex != null" >
+        emp_sex = #{emp_sex,jdbcType=INTEGER},
+      </if>
+      <if test="emp_login != null" >
+        emp_login = #{emp_login,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_pass != null" >
+        emp_pass = #{emp_pass,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_phone != null" >
+        emp_phone = #{emp_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="emp_state != null" >
+        emp_state = #{emp_state,jdbcType=INTEGER},
+      </if>
+      <if test="identitily != null" >
+        identitily = #{identitily,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="afterschool != null" >
+        afterschool = #{afterschool,jdbcType=DATE},
+      </if>
+      <if test="intime != null" >
+        intime = #{intime,jdbcType=DATE},
+      </if>
+      <if test="emp_remark != null" >
+        emp_remark = #{emp_remark,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=REAL},
+      </if>
+    </set>
+    where emp_id = #{emp_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jkoss.pojo.Employ" >
+    update employ
+    set
+      depe_id = #{depe_id,jdbcType=INTEGER},
+      job_id = #{job_id,jdbcType=INTEGER},
+      emp_name = #{emp_name,jdbcType=VARCHAR},
+      emp_sex = #{emp_sex,jdbcType=INTEGER},
+      emp_login = #{emp_login,jdbcType=VARCHAR},
+      emp_pass = #{emp_pass,jdbcType=VARCHAR},
+      emp_phone = #{emp_phone,jdbcType=VARCHAR},
+      emp_state = #{emp_state,jdbcType=INTEGER},
+      identitily = #{identitily,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      afterschool = #{afterschool,jdbcType=DATE},
+      intime = #{intime,jdbcType=DATE},
+      emp_remark = #{emp_remark,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=REAL}
+    where emp_id = #{emp_id,jdbcType=INTEGER}
+  </update>
+  <select id="findAllByDp_id" resultMap="BaseResultMap2" >
+   select e.*, d.depe_name  from depe d,employ e
+   where d.depe_id=e.depe_id 
+   and e.depe_id=#{params.wk_dp_id}
+   group by e.emp_id
+  </select>
+  <select id="findAll" resultMap="BaseResultMap2">
+   select e.*, d.depe_name  from depe d,employ e
+   where d.depe_id=e.depe_id
+   group by e.emp_id
+  </select>
+  <select id="selectByLkName" resultMap="BaseResultMap2" >
+   select e.*, d.depe_name  from depe d,employ e
+   where d.depe_id=e.depe_id 
+   and e.emp_name like CONCAT('%',#{params.wk_ep_name},'%') 	
+   group by e.emp_id
+  </select>
+  
+  
+   <select id="findAllByDp_id22" resultType="com.jkoss.pojo.vo.EmployVo" >
+   select e.*, d.depe_name ,j.* from depe d,employ e,job j 
+   where d.depe_id=e.depe_id and e.job_id=j.job_id 
+   and e.depe_id=#{params.wk_dp_id}
+   group by e.emp_id
+  </select>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jkoss.dao.ExecuteMapper">
+  <resultMap id="BaseResultMap" type="com.jkoss.pojo.Execute">
+    <id column="exe_id" jdbcType="INTEGER" property="exe_id" />
+    <result column="regist_id" jdbcType="INTEGER" property="regist_id" />
+    <result column="exe_begin" jdbcType="TIMESTAMP" property="exe_begin" />
+    <result column="exe_end" jdbcType="TIMESTAMP" property="exe_end" />
+    <result column="jg_name" jdbcType="VARCHAR" property="jg_name" />
+    <result column="coldopera" jdbcType="INTEGER" property="coldopera" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exe_id, regist_id, exe_begin, exe_end, jg_name, coldopera
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from execute
+    where exe_id = #{exe_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from execute
+    where exe_id = #{exe_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jkoss.pojo.Execute">
+    insert into execute (exe_id, regist_id, exe_begin, 
+      exe_end, jg_name, coldopera
+      )
+    values (#{exe_id,jdbcType=INTEGER}, #{regist_id,jdbcType=INTEGER}, #{exe_begin,jdbcType=TIMESTAMP}, 
+      #{exe_end,jdbcType=TIMESTAMP}, #{jg_name,jdbcType=VARCHAR}, #{coldopera,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jkoss.pojo.Execute" useGeneratedKeys="true"
+		keyProperty="exe_id">
+    insert into execute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="exe_id != null">
+        exe_id,
+      </if>
+      <if test="regist_id != null">
+        regist_id,
+      </if>
+      <if test="exe_begin != null">
+        exe_begin,
+      </if>
+      <if test="exe_end != null">
+        exe_end,
+      </if>
+      <if test="jg_name != null">
+        jg_name,
+      </if>
+      <if test="coldopera != null">
+        coldopera,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="exe_id != null">
+        #{exe_id,jdbcType=INTEGER},
+      </if>
+      <if test="regist_id != null">
+        #{regist_id,jdbcType=INTEGER},
+      </if>
+      <if test="exe_begin != null">
+        #{exe_begin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exe_end != null">
+        #{exe_end,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jg_name != null">
+        #{jg_name,jdbcType=VARCHAR},
+      </if>
+      <if test="coldopera != null">
+        #{coldopera,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jkoss.pojo.Execute">
+    update execute
+    <set>
+      <if test="regist_id != null">
+        regist_id = #{regist_id,jdbcType=INTEGER},
+      </if>
+      <if test="exe_begin != null">
+        exe_begin = #{exe_begin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exe_end != null">
+        exe_end = #{exe_end,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jg_name != null">
+        jg_name = #{jg_name,jdbcType=VARCHAR},
+      </if>
+      <if test="coldopera != null">
+        coldopera = #{coldopera,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exe_id = #{exe_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jkoss.pojo.Execute">
+    update execute
+    set regist_id = #{regist_id,jdbcType=INTEGER},
+      exe_begin = #{exe_begin,jdbcType=TIMESTAMP},
+      exe_end = #{exe_end,jdbcType=TIMESTAMP},
+      jg_name = #{jg_name,jdbcType=VARCHAR},
+      coldopera = #{coldopera,jdbcType=INTEGER}
+    where exe_id = #{exe_id,jdbcType=INTEGER}
+  </update>
+</mapper>

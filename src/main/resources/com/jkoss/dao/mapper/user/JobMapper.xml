@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jkoss.dao.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.jkoss.pojo.Job" >
+    <id column="job_id" property="job_id" jdbcType="INTEGER" />
+    <result column="job_name" property="job_name" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.jkoss.pojo.vo.JobVo" id="BaseResultMap2">
+    <id column="job_id" property="job_id" jdbcType="INTEGER" />
+    <result column="job_name" property="job_name" jdbcType="VARCHAR" />
+    <collection property="powers" column="job_id" ofType="com.jkoss.pojo.Power" fetchType="eager" select="com.jkoss.dao.PowerMapper.selectByJob_id"></collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    job_id, job_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from job
+    where job_id = #{job_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from job
+    where job_id = #{job_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jkoss.pojo.Job" >
+    insert into job (job_id, job_name)
+    values (#{job_id,jdbcType=INTEGER}, #{job_name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jkoss.pojo.Job" >
+    insert into job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="job_id != null" >
+        job_id,
+      </if>
+      <if test="job_name != null" >
+        job_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="job_id != null" >
+        #{job_id,jdbcType=INTEGER},
+      </if>
+      <if test="job_name != null" >
+        #{job_name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jkoss.pojo.Job" >
+    update job
+    <set >
+      <if test="job_name != null" >
+        job_name = #{job_name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where job_id = #{job_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jkoss.pojo.Job" >
+    update job
+    set job_name = #{job_name,jdbcType=VARCHAR}
+    where job_id = #{job_id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <select id="findJobVoAll" resultMap="BaseResultMap2">
+    SELECT * from job
+  </select>
+  <delete id="deleteJob2rightByjob_id" parameterType="java.lang.Integer">
+   delete from job2right 
+   where job_id=#{job_id}
+  </delete>
+  <insert id="insertJob2rightByjob_id">
+   insert into job2right (job_id,power_id)
+   values (#{arg0},#{arg1})
+  </insert>
+   <select id="selectJobName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT * from job where job_name=#{job_name} 
+  </select>
+  <select id="selectByLikeJobName" resultMap="BaseResultMap2">
+    SELECT * from job where job_name like CONCAT('%',#{params.jbname},'%') 	
+  </select>
+</mapper>

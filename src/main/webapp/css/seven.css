@@ -1,0 +1,70 @@
+img
+	{border:0;}
+p
+	{text-indent:28px;margin:0px 10px;line-height:200%;font-size:14px;white-space:nowrap; white-space:normal; }
+p a
+	{font-size:14px;text-decoration:underline; }
+body
+	{background:#eeeeff;margin:0px auto;padding:0px;font-size:12px;text-align:center;visibility: visible;}
+a	
+	{color:#0066aa;text-decoration:none;font-size:12px;}
+a:hover
+	{color:#ff0000;text-decoration:none;}
+table
+	{border-collapse:collapse;}
+.bod
+	{margin:10px;}
+.clear
+	{height:0px; overflow:hidden; clear:both; font-size:0px;}
+.ta
+	{margin:0px auto;border:solid 1px #3399ff; background:#f6f8ff; width:100%; border-collapse:collapse;} 
+.ta2
+	{margin:0px auto;margin-top:10px;background:#f6f8ff; width:100%; border-collapse:collapse;word-wrap:break-word;word-break:break-all;} 
+th
+	{background-color:#66bbff; border:#66bbff solid 1px;padding:5px; color:#ffffff;text-align:left;} 
+td,.tdnormal
+	{border:#bbddff solid 1px; padding:4px; background:#fefefe;font-size:12px;} 
+.tdodd
+	{background:#fff; }
+.ta .tdover
+	{background:#def;color:#00f;}  
+.ta .tdclick
+	{}
+.ta .tdclick input,.tdclick a,.ta .tdover a
+	{}
+.ta2 .tdover a:hover
+	{color:#f00;} 
+
+.input
+	{background:url(../images/input.gif) no-repeat center; width:100px;height:25px;margin:0px 5px;;padding:0px;border:0px;}
+.input2
+	{background:url(../images/input2.gif) no-repeat center; width:100px;height:25px;margin:0px 5px;;padding:0px;border:0px;}
+.fanhui
+	{margin:0px auto;margin-top:50px;width:500px;height:30;border:solid #00f 1px;padding:50px 0px;}
+.fanhui .timenumber
+	{border: 0px; color: #000000; font-size: 12px; font-weight:900;padding:0px; width: 12px;background:#eaeeff;}
+.page
+	{border:solid 1px;height:30px;float:left;}
+/*input*/
+.input_on
+	{padding:3px 8px 0px 3px;height:18px;border:1px solid #999;background-color:#FFFFCC;color:#00f;}
+.input_off
+	{padding:3px 8px 0px 3px;height:18px;border:1px solid #CCC;background-color:#FFF;}
+.input_move
+	{padding:3px 8px 0px 3px;height:18px;border:1px solid #999;background-color:#FFFFCC;color:#00f;}
+.input_out
+	{padding:3px 8px 0px 3px;height:18px;border:1px solid #CCC;background-color:#FFF;/*height:16px;Ä¬ÈÏ¸ß¶È*/}
+
+.config	{margin:0px 10px;}
+.config .none	{DISPLAY: none}
+.config .ta2	{margin:0px;}
+.tabtitle 
+	{font-weight: 900; overflow: hidden; height: 28px;margin-left:10px;margin-top:10px;}
+.tabtitle ul
+	{margin:0px;padding:0px;}
+.tabtitle li 
+	{float: left; padding-right: 0px; padding-left: 0px; padding-bottom: 2px; margin: 0px; font-size: 12px; width: 100px; cursor: pointer; padding-top:10px; list-style-type: none; text-align: center}
+.tabtitle .active 
+	{background:url(../images/config.gif) no-repeat;height:30px;width:160px;color:#300; }
+.tabtitle .normal 
+	{background:url(../images/config.gif) no-repeat 0px -34px;;height:30px;width:160px;color:#999;}

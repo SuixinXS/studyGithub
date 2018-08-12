@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jkoss.dao.DepotMapper">
+  <resultMap id="BaseResultMap" type="com.jkoss.pojo.Depot">
+    <id column="dep_id" jdbcType="INTEGER" property="dep_id" />
+    <result column="cab_id" jdbcType="INTEGER" property="cab_id" />
+    <result column="dep_address" jdbcType="VARCHAR" property="dep_address" />
+    <result column="dep_name" jdbcType="VARCHAR" property="dep_name" />
+    <result column="dep_capacity" jdbcType="REAL" property="dep_capacity" />
+    <result column="dep_state" jdbcType="INTEGER" property="dep_state" />
+    <result column="dep_director" jdbcType="VARCHAR" property="dep_director" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dep_id, cab_id, dep_address, dep_name, dep_capacity, dep_state, dep_director
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from depot
+    where dep_id = #{dep_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from depot
+    where dep_id = #{dep_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jkoss.pojo.Depot">
+    insert into depot (dep_id, cab_id, dep_address, 
+      dep_name, dep_capacity, dep_state, 
+      dep_director)
+    values (#{dep_id,jdbcType=INTEGER}, #{cab_id,jdbcType=INTEGER}, #{dep_address,jdbcType=VARCHAR}, 
+      #{dep_name,jdbcType=VARCHAR}, #{dep_capacity,jdbcType=REAL}, #{dep_state,jdbcType=INTEGER}, 
+      #{dep_director,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jkoss.pojo.Depot" useGeneratedKeys="true" keyProperty="dep_id">
+    insert into depot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dep_id != null">
+        dep_id,
+      </if>
+      <if test="cab_id != null">
+        cab_id,
+      </if>
+      <if test="dep_address != null">
+        dep_address,
+      </if>
+      <if test="dep_name != null">
+        dep_name,
+      </if>
+      <if test="dep_capacity != null">
+        dep_capacity,
+      </if>
+      <if test="dep_state != null">
+        dep_state,
+      </if>
+      <if test="dep_director != null">
+        dep_director,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dep_id != null">
+        #{dep_id,jdbcType=INTEGER},
+      </if>
+      <if test="cab_id != null">
+        #{cab_id,jdbcType=INTEGER},
+      </if>
+      <if test="dep_address != null">
+        #{dep_address,jdbcType=VARCHAR},
+      </if>
+      <if test="dep_name != null">
+        #{dep_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dep_capacity != null">
+        #{dep_capacity,jdbcType=REAL},
+      </if>
+      <if test="dep_state != null">
+        #{dep_state,jdbcType=INTEGER},
+      </if>
+      <if test="dep_director != null">
+        #{dep_director,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jkoss.pojo.Depot">
+    update depot
+    <set>
+      <if test="cab_id != null">
+        cab_id = #{cab_id,jdbcType=INTEGER},
+      </if>
+      <if test="dep_address != null">
+        dep_address = #{dep_address,jdbcType=VARCHAR},
+      </if>
+      <if test="dep_name != null">
+        dep_name = #{dep_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dep_capacity != null">
+        dep_capacity = #{dep_capacity,jdbcType=REAL},
+      </if>
+      <if test="dep_state != null">
+        dep_state = #{dep_state,jdbcType=INTEGER},
+      </if>
+      <if test="dep_director != null">
+        dep_director = #{dep_director,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dep_id = #{dep_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jkoss.pojo.Depot">
+    update depot
+    set cab_id = #{cab_id,jdbcType=INTEGER},
+      dep_address = #{dep_address,jdbcType=VARCHAR},
+      dep_name = #{dep_name,jdbcType=VARCHAR},
+      dep_capacity = #{dep_capacity,jdbcType=REAL},
+      dep_state = #{dep_state,jdbcType=INTEGER},
+      dep_director = #{dep_director,jdbcType=VARCHAR}
+    where dep_id = #{dep_id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

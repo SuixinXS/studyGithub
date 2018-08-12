@@ -1,0 +1,60 @@
+BODY {
+	MARGIN: 0px; CURSOR: default; BACKGROUND-COLOR: #ffffff;margin-left: 5px;
+}
+BODY {
+	FONT-SIZE: 12px; CURSOR: default; COLOR: #313131; FONT-FAMILY: "Geneva", "Arial", "Helvetica", "sans-serif"
+}
+TD {
+	FONT-SIZE: 12px; CURSOR: default; COLOR: #313131; FONT-FAMILY: "Geneva", "Arial", "Helvetica", "sans-serif"
+}
+TH {
+	FONT-SIZE: 12px; CURSOR: default; COLOR: #313131; FONT-FAMILY: "Geneva", "Arial", "Helvetica", "sans-serif"
+}
+img{border:0px;}
+A {
+	COLOR: #535353; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ff4e00; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: lime
+}
+.table1 {
+	BORDER-RIGHT: #33ccff 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #33ccff 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #33ccff 1px solid; PADDING-TOP: 10px; BORDER-BOTTOM: #33ccff 1px solid
+}
+.in_p {
+	BORDER-RIGHT: #cdea8b 1px solid; BORDER-TOP: #cdea8b 1px solid; BACKGROUND-IMAGE: url(../images/bg.gif); BORDER-LEFT: #cdea8b 1px solid; WIDTH: 180px; COLOR: #373737; BORDER-BOTTOM: #cdea8b 1px solid; HEIGHT: 22px
+}
+.in_p1 {
+	BORDER-RIGHT: #cdea8b 1px solid; BORDER-TOP: #cdea8b 1px solid; BACKGROUND-IMAGE: url(../images/bg.gif); BORDER-LEFT: #cdea8b 1px solid; WIDTH: 100px; COLOR: #373737; BORDER-BOTTOM: #cdea8b 1px solid; HEIGHT: 22px
+}
+INPUT {
+	FONT: 9pt Tahoma,MS Shell Dlg,ÀŒÃÂ
+}
+TEXTAREA {
+	FONT: 9pt Tahoma,MS Shell Dlg,ÀŒÃÂ
+}
+.bginput {
+	BORDER-RIGHT: #7f9db9 1px solid; BORDER-TOP: #7f9db9 1px solid; BACKGROUND: #fff; BORDER-LEFT: #7f9db9 1px solid; BORDER-BOTTOM: #7f9db9 1px solid
+}
+.upfile {
+	BORDER-RIGHT: #7f9db9 1px solid; BORDER-TOP: #7f9db9 1px solid; MARGIN: 5px; FONT: 9pt Tahoma,MS Shell Dlg,ÀŒÃÂ; BORDER-LEFT: #7f9db9 1px solid; WIDTH: 300px; BORDER-BOTTOM: #7f9db9 1px solid
+}
+#divStatus {
+	BORDER-RIGHT: #e8e8e8 1px solid; PADDING-RIGHT: 8px; BORDER-TOP: #e8e8e8 1px solid; PADDING-LEFT: 8px; FONT-WEIGHT: 500; PADDING-BOTTOM: 8px; MARGIN: 2px; BORDER-LEFT: #e8e8e8 1px solid; WIDTH: 350px; COLOR: #333366; PADDING-TOP: 8px; BORDER-BOTTOM: #e8e8e8 1px solid; BACKGROUND-COLOR: }
+	
+	
+/**≈‰÷√**/
+
+ul,li{list-style-type:none;}
+  /**∫ÛÃ®÷∆±Ì**/
+#MTable td{height:26px;line-height:26px;background-color:#FFFFFF;}
+#MTable .btit{background:url(../images/btitbg.gif) repeat-x 0 0;color:green;font-family:"Œ¢»Ì—≈∫⁄";text-align:center;font-size:14px;}
+#MTable .stit{text-align:center;background-color:#0ecdfd;color:#FFFFFF;font-weight:bold;}
+.fengye{width:100%;margin:10px auto;height:40px;line-height:40px;text-align:right;}
+
+
+#Search{height:30px;line-height:30px;margin-bottom:5px;background:#b5b7b6;}
+#Search ul{padding:0px;margin:0px;}
+#Search ul li{float:left;font-family:"Œ¢»Ì—≈∫⁄";margin-right:10px;margin-left:15px;}

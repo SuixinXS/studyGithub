@@ -1,0 +1,85 @@
+﻿@charset "utf-8";
+body{ margin:0px; font-size:12px; font-family:"宋体"; text-decoration:none;}
+.Tab{ margin-bottom:15px; font-size:12px;}
+/*---------左侧导航-------*/
+.left_nav_menu{  background:url(images/bg/userleftMenu.jpg) no-repeat; color:#CC0066; font-weight:bold; text-align:center;  font-size:14px;}
+.left_nav_submenu{ font-size:12px; color:#AA0003; background:url(images/bg/left_navbg.jpg) no-repeat; padding-left:45px; border-left:1px solid #F895D6; border-right:1px solid #F895D6;}
+.left_nav{ font-size:12px; color:#0055aa; text-decoration:none;}
+.left_nav:hover{ text-decoration:underline;}
+.welcome{ font-size:12px; color:#0000FF; background:url(images/bg/left_welcome_bg.jpg) no-repeat; text-align:center; border-left:1px solid #F895D6; border-right:1px solid #F895D6;}
+.number{ font-size:14px; color:#FF0000; font-family:Arial; font-weight:bold; text-decoration:none;}
+
+/*--------订单-------*/
+.user_titleBg{ height:25px; background:url(images/bg/userTitleBg.jpg) repeat-x; font-size:14px; color:#333; font-weight:bold; line-height:30px; padding-left:10px;}
+.flight_submenu{font-size:12px; color:#404040; text-decoration:none; margin-top:10px;}
+.flight_submenu td{ padding-left:5px; line-height:22px;}
+.flight_submenu  a{ font-size:12px; text-decoration:none; color:#0053AA; font-family:Tahoma, Geneva, sans-serif;}
+.flight_submenu  a:hover{ text-decoration:underline;}
+.flight_content{ font-size:12px; color:#333333; text-decoration:none;}
+.flight_content td{ padding-left:5px;}
+.Order{ font-size:12px; color:#0030CE; text-decoration:none; font-family:Tahoma;}
+.Order:hover{ font-size:12px; color:#ff6600; text-decoration:underline;}
+.submenu_bg{ font-size:12px; font-weight:bold; background:#f7f7f7;}
+.Terms{ font-size:12px; color:#003399; text-decoration:underline;}
+.Terms:hover{ text-decoration:none;}
+.Remittances{ padding-left:450px; font-size:12px; font-weight:bold; text-decoration:underline;}
+.services_title{ font-size:12px; color:#FF6600; text-decoration:none; font-weight:bold; padding-left:5px;}
+.services_tel{ padding-right:5px;}
+.services_content{ padding:5px; line-height:18px; font-size:12px; text-decoration:none;}
+.services_replay{ padding:5px; line-height:18px; font-size:12px; text-decoration:none; color:#0066FF;}
+.services_Type{ padding-left:220px; color:#000000; text-decoration:none;}
+.services_dingdan{padding-left:330px; color:#000000; text-decoration:none;}
+.red{ color:#FF0000; font-size:12px; text-decoration:none;}
+.Grade{ border:1px solid #C0E5F1; padding:8px; line-height:18px; text-decoration:none; color:#333333;}
+.user_name{ font-size:14px; text-decoration:none; color:#FF0000; font-weight:bold; font-family:Arial;}
+.zjTab{ font-size:12px; text-decoration:none; color:#333333;}
+.zjTab td{ border-bottom:1px solid #eeeeee;}
+.zjTab a{ text-decoration:none; font-size:12px; color:#0055aa;}
+.zjTab a:hover{ text-decoration:underline; color:#ff6600;}
+.MessageContent{ font-size:12px; text-decoration:none; color:#666666; padding:5px; line-height:22px;}
+/*--------翻页-------*/
+.Page{text-align:right;padding-right:15px;}
+.Page span{font-weight:bold;color:#FF6600;}
+.Page select{font-weight:bold;color:#FF6600;}
+.Page code{font-family:webdings;}
+.Page a{color:#FF6600;text-decoration:none;}
+.Page a:hover{color:#135294;text-decoration:none;}
+.NoData{ color:#FF0000; height:30px; line-height:30px;}
+.userIpt{ border:1px solid #ccc; height:20px; line-height:20px; padding-left:3px; background:#FFF;}
+
+
+
+.pNewBorder{border:1px solid #FFC8DD; width:960px; margin-bottom:20px;}
+.bai{ color:#FFF; background:#FFD5E9; color:#333;}
+.tdbg{ background:#FFF3F7;}
+.OrederMenu{border-bottom:none; font-size:14px; color:#C6005A;font-weight:bold; text-align:left;margin:0 auto 10px auto; line-height:30px; padding-left:8px;}
+.OrederMenu img{ padding-right:10px;}
+
+			.xyksm {width:370px;;zoom:1;position: absolute; background:#FFFFFF; margin-top:20px; float:left; margin-left:340px;}
+			.xyksm_top_l {float:left; width:20px; height:5px; line-height:5px; font-size:5px; background:url(images/card/xyk1.gif) no-repeat left top;}
+			.xyksm_top_r {float: right; width:5px; height:5px; line-height:5px; font-size:5px; background:url(images/card/xyk3.gif) no-repeat left top;}
+			.xyksm_top {background:url(images/card/xyk2.gif) no-repeat 20px top;zoom:1;}
+
+			.xyksm_middle { overflow:auto;zoom:1; background:url(images/card/xyk10.gif) repeat-y 20px;}
+			.xyksm_middle_l {float:left; width:20px;font-size:5px; background:url(images/card/xyk9.gif) left top;}
+			.xyksm_middle_r {float: right; width:5px;font-size:5px; background:url(images/card/xyk4.jpg)  right top;}
+			.xyksm_middle_c {margin-left:5px; margin-right:5px; }
+
+			.xyksm_bottom_l {float:left; width:20px; height:5px; line-height:5px; font-size:5px; background:url(images/card/xyk5.gif) no-repeat left top;}
+			.xyksm_bottom_r {float: right; width:5px; height:5px; line-height:5px; font-size:5px; background:url(images/card/xyk8.gif) no-repeat left top;}
+			.xyksm_bottom {background:url(images/card/xyk6.gif) no-repeat 20px top; zoom:1;}
+.payTd{ font-size:12px; text-decoration:none; color:#000000; }
+#pay_Menu{ height:44px; width:960px;}
+#pay_Menu ul{ margin:0px; padding:0px;}
+#pay_Menu ul li{ float:left; display:block; text-align:center; margin:0 0 0 10px;}
+#pay_Menu ul li.payOver{ width:100px; height:44px; line-height:44px; text-decoration:none; font-weight:bold; color:#333333; text-align:center; background:url(/Themes/images/bg/pay_over.jpg) no-repeat bottom  center; font-size:14px;}
+#pay_Menu ul li.payOut{ width:100px; height:44px; line-height:44px; text-decoration:none; font-weight:bold; color:#C6005A; text-align:center; background:url(/Themes/images/bg/pay_out.jpg) no-repeat bottom  center; font-size:14px;}
+.payTab{ font-size:12px; text-decoration:none; color:#000000; margin:10px 0 10px 0;}
+.payTab table{ font-size:12px; text-decoration:none;}
+.payTab a{ font-size:12px; text-decoration:none; color:#0000FF;}
+.payTab a:hover{ font-size:12px; text-decoration:underline; color:#ff5500;}
+.payTab input{ border:1px solid #ffffff;}
+.xykTB{ font-size:12px; text-decoration:none;}
+.xykTB input{ border:0;}
+
+.serchbg{ background:#FFF3F7; border-bottom:1px solid #ddd;}

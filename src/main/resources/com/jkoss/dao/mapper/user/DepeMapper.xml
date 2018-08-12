@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jkoss.dao.DepeMapper" >
+  <resultMap id="BaseResultMap" type="com.jkoss.pojo.Depe" >
+    <id column="depe_id" property="depe_id" jdbcType="INTEGER" />
+    <result column="depe_name" property="depe_name" jdbcType="VARCHAR" />
+    <result column="depe_address" property="depe_address" jdbcType="VARCHAR" />
+    <result column="depe_phone" property="depe_phone" jdbcType="VARCHAR" />
+    <result column="depe_emal" property="depe_emal" jdbcType="VARCHAR" />
+    <result column="depe_state" property="depe_state" jdbcType="INTEGER" />
+    <result column="depe_remark" property="depe_remark" jdbcType="VARCHAR" />
+    <result column="depe_director" property="depe_director" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    depe_id, depe_name, depe_address, depe_phone, depe_emal, depe_state, depe_remark, 
+    depe_director
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from depe
+    where depe_id = #{depe_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from depe
+    where depe_id = #{depe_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jkoss.pojo.Depe" >
+    insert into depe (depe_id, depe_name, depe_address, 
+      depe_phone, depe_emal, depe_state, 
+      depe_remark, depe_director)
+    values (#{depe_id,jdbcType=INTEGER}, #{depe_name,jdbcType=VARCHAR}, #{depe_address,jdbcType=VARCHAR}, 
+      #{depe_phone,jdbcType=VARCHAR}, #{depe_emal,jdbcType=VARCHAR}, #{depe_state,jdbcType=INTEGER}, 
+      #{depe_remark,jdbcType=VARCHAR}, #{depe_director,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jkoss.pojo.Depe" >
+    insert into depe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="depe_id != null" >
+        depe_id,
+      </if>
+      <if test="depe_name != null" >
+        depe_name,
+      </if>
+      <if test="depe_address != null" >
+        depe_address,
+      </if>
+      <if test="depe_phone != null" >
+        depe_phone,
+      </if>
+      <if test="depe_emal != null" >
+        depe_emal,
+      </if>
+      <if test="depe_state != null" >
+        depe_state,
+      </if>
+      <if test="depe_remark != null" >
+        depe_remark,
+      </if>
+      <if test="depe_director != null" >
+        depe_director,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="depe_id != null" >
+        #{depe_id,jdbcType=INTEGER},
+      </if>
+      <if test="depe_name != null" >
+        #{depe_name,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_address != null" >
+        #{depe_address,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_phone != null" >
+        #{depe_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_emal != null" >
+        #{depe_emal,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_state != null" >
+        #{depe_state,jdbcType=INTEGER},
+      </if>
+      <if test="depe_remark != null" >
+        #{depe_remark,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_director != null" >
+        #{depe_director,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jkoss.pojo.Depe" >
+    update depe
+    <set >
+      <if test="depe_name != null" >
+        depe_name = #{depe_name,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_address != null" >
+        depe_address = #{depe_address,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_phone != null" >
+        depe_phone = #{depe_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_emal != null" >
+        depe_emal = #{depe_emal,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_state != null" >
+        depe_state = #{depe_state,jdbcType=INTEGER},
+      </if>
+      <if test="depe_remark != null" >
+        depe_remark = #{depe_remark,jdbcType=VARCHAR},
+      </if>
+      <if test="depe_director != null" >
+        depe_director = #{depe_director,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where depe_id = #{depe_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jkoss.pojo.Depe" >
+    update depe
+    set depe_name = #{depe_name,jdbcType=VARCHAR},
+      depe_address = #{depe_address,jdbcType=VARCHAR},
+      depe_phone = #{depe_phone,jdbcType=VARCHAR},
+      depe_emal = #{depe_emal,jdbcType=VARCHAR},
+      depe_state = #{depe_state,jdbcType=INTEGER},
+      depe_remark = #{depe_remark,jdbcType=VARCHAR},
+      depe_director = #{depe_director,jdbcType=VARCHAR}
+    where depe_id = #{depe_id,jdbcType=INTEGER}
+  </update>
+</mapper>
