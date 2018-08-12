@@ -26,6 +26,8 @@ public class LoginAction {
 	public String 登录(HttpServletRequest req,String lgnName, String pwdword) {
 		System.out.println(epBiz.selectEpByLgPw(lgnName,pwdword));
 		EmployVo employVo = epBiz.selectEpByLgPw(lgnName,pwdword);
+		
+		System.out.println("进入登录！！");
 		if (employVo!=null&&employVo.getEmp_state()==1) {
 			req.getSession().setAttribute(Constant.SESSION_USER_KEY,employVo);
 			return "/main.jsp";
