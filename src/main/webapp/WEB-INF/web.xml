@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
- 
+
 	<!-- 编码过滤器 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -18,7 +18,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 
 	<!-- 防止Spring内存溢出监听器 -->
 	<listener>
@@ -44,6 +44,6 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<session-config>
-	  <session-timeout>60</session-timeout>
+		<session-timeout>60</session-timeout>
 	</session-config>
 </web-app>
