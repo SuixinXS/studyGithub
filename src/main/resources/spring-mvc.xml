@@ -78,22 +78,26 @@
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
  
-<!--   <mvc:interceptors>
+    <mvc:interceptors>
       <mvc:interceptor>
-         <mvc:mapping path="/pk/*.do"/>
+         <mvc:mapping path="/resource/*.do"/>
+         <mvc:mapping path="/wk/*.do"/>
+         <mvc:mapping path="/sys/*.do"/>
+         <mvc:mapping path="/user/*.do"/>
+         <mvc:mapping path="/service/*.do"/>
+       
+        
+            
          <bean class="com.jkoss.interceptor.PriInterceptor">
              <property name="passed">
                <list>
                   <value>lgn.do</value>
-                   <value>lgout.do</value>
+                  <value>lgout.do</value>
                </list>
              </property>
          
          </bean>
       </mvc:interceptor>
-      
-  
-  </mvc:interceptors> -->
-	
+  </mvc:interceptors> 
 
 </beans>

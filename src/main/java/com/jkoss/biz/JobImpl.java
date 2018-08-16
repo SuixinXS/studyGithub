@@ -60,13 +60,15 @@ public class JobImpl implements IJobBiz{
 		// TODO Auto-generated method stub
 		//增加Job表
 		int i=0;
-		if (job.getJob_name().equals("")) {
-			return "无效角色名";
+		if (job.getJob_name().equals("")||jbDao.selectJobName(job.getJob_name())!=null) {
+			return "添加失败";
 		}else {
 			i=jbDao.insert(job);
 			Job job2 = jbDao.selectJobName(job.getJob_name());
-			for (int j : power_id) {
-			  i = jbDao.insertJob2rightByjob_id(job2.getJob_id(),j);
+			if(power_id!=null) {
+				for (int j : power_id) {
+					  i = jbDao.insertJob2rightByjob_id(job2.getJob_id(),j);
+					}
 			}
 			return i==1?"添加成功":"添加失败";
 		}

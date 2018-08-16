@@ -148,14 +148,17 @@ public class CoolregisterVo extends Coolregister {
 	public String toString() {
 		return "CoolregisterVo [exe_id=" + exe_id + ", exe_begin=" + exe_begin + ", exe_end=" + exe_end + ", jg_name="
 				+ jg_name + ", coldopera=" + coldopera + ", company_name=" + company_name + ", ctm_name=" + ctm_name
-				+ ", ctm_phone=" + ctm_phone + ", emp_id=" + emp_id + ", emp_name=" + emp_name + ", getEmp_id()="
-				+ getEmp_id() + ", getEmp_name()=" + getEmp_name() + ", getCompany_name()=" + getCompany_name()
-				+ ", getCtm_name()=" + getCtm_name() + ", getCtm_phone()=" + getCtm_phone() + ", getExe_id()="
-				+ getExe_id() + ", getExe_begin()=" + getExe_begin() + ", getExe_end()=" + getExe_end()
-				+ ", getJg_name()=" + getJg_name() + ", getColdopera()=" + getColdopera() + ", getRegist_id()="
-				+ getRegist_id() + ", getArea_id()=" + getArea_id() + ", getCab_id()=" + getCab_id() + ", getDep_id()="
-				+ getDep_id() + ", getGood_id()=" + getGood_id() + ", getCtm_id()=" + getCtm_id()
-				+ ", getRegist_begin()=" + getRegist_begin() + ", getRegist_state()=" + getRegist_state()
+				+ ", ctm_phone=" + ctm_phone + ", emp_id=" + emp_id + ", emp_name=" + emp_name + ", dep_address="
+				+ dep_address + ", dep_name=" + dep_name + ", good_type=" + good_type + ", good_name=" + good_name
+				+ ", getGood_type()=" + getGood_type() + ", getGood_name()=" + getGood_name() + ", getDep_name()="
+				+ getDep_name() + ", getDep_address()=" + getDep_address() + ", getEmp_id()=" + getEmp_id()
+				+ ", getEmp_name()=" + getEmp_name() + ", getCompany_name()=" + getCompany_name() + ", getCtm_name()="
+				+ getCtm_name() + ", getCtm_phone()=" + getCtm_phone() + ", getExe_id()=" + getExe_id()
+				+ ", getExe_begin()=" + getExe_begin() + ", getExe_end()=" + getExe_end() + ", getJg_name()="
+				+ getJg_name() + ", getColdopera()=" + getColdopera() + ", getRegist_no()=" + getRegist_no()
+				+ ", getRegist_id()=" + getRegist_id() + ", getArea_id()=" + getArea_id() + ", getCab_id()="
+				+ getCab_id() + ", getDep_id()=" + getDep_id() + ", getGood_id()=" + getGood_id() + ", getCtm_id()="
+				+ getCtm_id() + ", getRegist_begin()=" + getRegist_begin() + ", getRegist_state()=" + getRegist_state()
 				+ ", getRegist_paystate()=" + getRegist_paystate() + ", getRegist_cost()=" + getRegist_cost()
 				+ ", getRegist_paytime()=" + getRegist_paytime() + ", getRegist_end()=" + getRegist_end()
 				+ ", getTermperature()=" + getTermperature() + ", getCooltype()=" + getCooltype()
@@ -163,6 +166,9 @@ public class CoolregisterVo extends Coolregister {
 				+ getPhone() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + "]";
 	}
+
+
+	
 
 	
 

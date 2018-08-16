@@ -93,7 +93,7 @@
 						       $("#dlg2 input[name='school']").val(json.school);
 						       $("#dlg2 input[name='salary']").val(json.salary */
 						       
-						       $("#addfrom").form('load',json)
+						       $("#addfrom1").form('load',json)
 						       $("#dlg2 textarea[name='emp_remark']").val(json.emp_remark);
 						       if(json.emp_sex==1){
 						    	   $("#boy").prop("checked", true);
@@ -129,6 +129,24 @@
         	alert($("#wk_ep_name").val());
         	location.href = "slktNa.do?wk_ep_name="+$("#wk_ep_name").val();
         });
+        
+        //验证用户登录账号
+        $("#addlogin").focusout(function(){
+        	$.get("yanzhenLg.do?emp_login="+$(this).val(),function(msg){
+        		$("#addfrom").removeAttr("onsubmit");
+        		if(msg==1){
+        			$("#yanzhenlg").html("此账号可用");
+        			
+        		}else{
+        			$("#yanzhenlg").html("此账号不可用！！！");
+        			$("#addfrom").attr("onsubmit", "return false");
+        		}
+        		
+        	
+        	});
+        });
+
+
 	});
 </script>
 
@@ -214,7 +232,7 @@
 	<div id="dlg" class="easyui-dialog" title="添加员工信息"
 		data-options="iconCls:'icon-save',closed:true"
 		style="display: none; width: 400px; height: 500px; padding: 10px;">
-		<form action="<%=basePath%>wk/addEp.do" name="addfrom" method="get">
+		<form action="<%=basePath%>wk/addEp.do" name="addfrom" id="addfrom" method="get">
 			<table>
 				<tr>
 					<td>员工姓名</td>
@@ -247,7 +265,10 @@
 
 				<tr>
 					<td>登入账号</td>
-					<td><input name="emp_login"></input></td>
+					<td><input name="emp_login" id="addlogin"></input>
+					      <span id="yanzhenlg" style="color: red"></span>
+					    
+					</td>
 				</tr>
 				<tr>
 					<td>登入密码</td>
@@ -300,7 +321,7 @@
 	<div id="dlg2" class="easyui-dialog" title="编辑停车场信息"
 		data-options="iconCls:'icon-save',closed:true,modal:true"
 		style="display: none; width: 400px; height: 500px; padding: 10px; top: 30px">
-		<form action="UpEp.do" name="addfrom" id="addfrom" method="get">
+		<form action="UpEp.do" name="addfrom" id="addfrom1" method="get">
 			<table>
 			    <tr>
 					<td><input name="emp_id"  type="hidden"/></td>

@@ -1,6 +1,7 @@
 package com.jkoss.action;
 
 import java.util.Date;
+import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import com.jkoss.pojo.Execute;
 import com.jkoss.pojo.Goodinfo;
 import com.jkoss.pojo.vo.CoolregisterVo;
 import com.jkoss.pojo.vo.CoolregisterVoCtm;
+import com.jkoss.pojo.vo.CustomerEx;
 import com.jkoss.pojo.vo.EmployVo;
 import com.jkoss.tool.Page;
 import com.jkoss.util.Constant;
@@ -32,25 +34,50 @@ public class ColdAction {
 	/* 订单 ················································· */
 //订单列表
 	@RequestMapping("lsColdReg")
-	public String lsColdReg(HttpServletRequest req, Page<CoolregisterVoCtm> page, String msg, Integer rid) {
+	public String lsColdReg(HttpServletRequest req, Page<CoolregisterVoCtm> page, String msg,
+			CoolregisterVoCtm coolReg) {
 		if (page == null) {
 			page = new Page<CoolregisterVoCtm>();
-			page.setPageNo(1);
 		}
+		if (coolReg != null) {
+			if (coolReg.getRegist_no() == null) {
+				if (req.getSession().getAttribute(Constant.SESSION_SELENCOLDREG_KEY) != null) {
+					coolReg = (CoolregisterVoCtm) req.getSession().getAttribute(Constant.SESSION_SELENCOLDREG_KEY);
+				}
+			} else {
+				req.getSession().setAttribute(Constant.SESSION_SELENCOLDREG_KEY, coolReg);
 
-		page.setPageSize(10);
-		page.getParams().put("regist_id", rid);
-		req.setAttribute("lsColdReg", coldBiz.lsCold(page));
+			}
+		}
+		req.setAttribute("lsColdReg", coldBiz.lsCold(page, coolReg));
 		req.setAttribute("remsg", msg);
 		return "/service/listCoolReg.jsp";
 
 	}
 
-//新增订单：包括存放的物品
-	@RequestMapping("addColdReg")
-	public String addColdReg(HttpServletRequest req, Coolregister cReg, Goodinfo good) {
+	// 显示没有作废的订单
+	@RequestMapping("showAvailableReg")
+	public String showAvailableReg(HttpServletRequest req, Page<CoolregisterVoCtm> page, String msg,
+			CoolregisterVoCtm coolReg) {
+		coolReg.setRegist_no("-1");
+		coolReg.setRegist_state(0);
 
-		return lsColdReg(req, null, coldBiz.addColdReg(cReg, good), null);
+		return lsColdReg(req, page, msg, coolReg);
+	}
+
+//新增订单：包括存放的物品
+	@ResponseBody
+	@RequestMapping("valiCtm")
+	public CustomerEx valiCtm(String ctm_login) {
+		return coldBiz.valiCtm(ctm_login);
+	}
+
+	@RequestMapping("addColdReg")
+	public String addColdReg(HttpServletRequest req, Coolregister cReg, Goodinfo good, Page<CoolregisterVoCtm> page) {
+		Random rand = new Random();
+		cReg.setRegist_no("no" + rand.nextInt(100) + "A" + rand.nextInt(100));
+
+		return lsColdReg(req, page, coldBiz.addColdReg(cReg, good), null);
 
 	}
 
@@ -84,10 +111,15 @@ public class ColdAction {
 //编辑订单
 
 	@RequestMapping("upCoolReg1")
-	public String upCoolReg1(HttpServletRequest req, Coolregister cReg, Goodinfo good) {
+	public String upCoolReg1(HttpServletRequest req, Page<CoolregisterVoCtm> page, Coolregister cReg, Goodinfo good) {
+		/*
+		 * SimpleDateFormat in = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		 * SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 */
+
 		coldBiz.updateByPrimaryKeySelective(cReg);
 		goodBiz.updateByPrimaryKeySelective(good);
-		return lsColdReg(req, null, "编辑完成", null);
+		return lsColdReg(req, page, "编辑完成", null);
 
 	}
 
@@ -96,53 +128,63 @@ public class ColdAction {
 	/* 入库计划 ················································· */
 //入库计划列表
 	@RequestMapping("lsEnCold")
-	public String lsEnCold(HttpServletRequest req, Page<CoolregisterVo> page, String bTime, String op) {
+	public String lsEnCold(HttpServletRequest req, Page<CoolregisterVo> page, CoolregisterVo coolEn) {
 		// 表示查出为入库计划
 		page.getParams().put("coldopera", 0);
-		if (bTime == "" || bTime == null || bTime.isEmpty() || bTime == "null") {
-			bTime = null;
-		} else {
-			String time = bTime + " 00:00:00";
-			String time1 = bTime + " 23:59:59";
-			page.getParams().put("time", time);
-			page.getParams().put("time1", time1);
+		page.setPageSize(5);
+		if (coolEn != null) {
+			if (coolEn.getJg_name() == null) {
+				if (req.getSession().getAttribute(Constant.SESSION_SELENCOLDTIME_KEY) != null) {
+					coolEn = (CoolregisterVo) req.getSession().getAttribute(Constant.SESSION_SELENCOLDTIME_KEY);
+				}
+			} else {
+				req.getSession().setAttribute(Constant.SESSION_SELENCOLDTIME_KEY, coolEn);
+
+			}
 		}
-		page.getParams().put("bTime", bTime);
+		req.setAttribute("lsEnCold", coldBiz.lsEnCold(page, coolEn));
+
 		req.setAttribute("arealist", freezeBiz.lsArea());
 		req.setAttribute("cablist", freezeBiz.lsAll());
 		req.setAttribute("delist", freezeBiz.lsDepotCid2());
-		req.setAttribute("lsEnCold", coldBiz.lsEnCold(page));
-
+		req.setAttribute("lsReg1", coldBiz.showReg());
 		req.setAttribute("ccslist", coldBiz.findAllCCS());
+
 		return "/service/listEnCoolReg.jsp";
 
 	}
 
-//新增入库计划
+	// 显示没有完成的入库计划
+	@RequestMapping("showNoFinsh")
+	public String showNoFinsh(HttpServletRequest req, Page<CoolregisterVo> page) {
+		page.getParams().put("noFinshEnReg", "Y");
 
+		return lsEnCold(req, page, null);
+	}
+
+//新增入库计划
+	// 展示入库计划表
 	@RequestMapping("showReg")
 	public String showReg(HttpServletRequest req, CoolregisterVo c) {
 
 		req.setAttribute("lsReg", coldBiz.showReg());
 		return "/service/showReg.jsp";
 	}
-	
+
 	@RequestMapping("addEnCold")
-	public String addEnCold(HttpServletRequest req, CoolregisterVo c) {
+	public String addEnCold(HttpServletRequest req, CoolregisterVo c, Page<CoolregisterVo> page) {
 
 		coldBiz.addEnCold(c);
-		return lsEnCold(req, new Page<CoolregisterVo>(), "null", "null");
+		return lsEnCold(req, page, null);
 	}
-//验证订单ID
-	@ResponseBody
-	@RequestMapping("checkRegId")
-	public String checkEnByRegId(HttpServletRequest req,  Integer rid) {
-		
-		return null;
 
-		
+//验证仓库位置
+	@ResponseBody
+	@RequestMapping("valiDepAddress")
+	public String valiDepAddress(int cid, String dAddress) {
+		return coldBiz.valiDepAddress(cid, dAddress);
 	}
-	
+
 //编辑入库计划
 	@ResponseBody
 	@RequestMapping("upEnCold1")
@@ -151,40 +193,55 @@ public class ColdAction {
 	}
 
 	@RequestMapping("upEnCold2")
-	public String upEnCold2(HttpServletRequest req, CoolregisterVo c) {
+	public String upEnCold2(HttpServletRequest req, CoolregisterVo c, Page<CoolregisterVo> page) {
 		coldBiz.upEnCold2(c);
-		return lsEnCold(req, new Page<CoolregisterVo>(), "null", "null");
+		return lsEnCold(req, page, null);
 
 	}
 
 //删除入库计划
 	@RequestMapping("delEnCold")
-	public String delEnCold(HttpServletRequest req, Integer eid) {
+	public String delEnCold(HttpServletRequest req, Integer eid, Page<CoolregisterVo> page) {
 		coldBiz.delEnCold(eid);
-		return lsEnCold(req, new Page<CoolregisterVo>(), "null", "null");
+		return lsEnCold(req, page, null);
 
 	}
 
 	/* 出库 */
 	// 出库计划列表
 	@RequestMapping("lsOutCold")
-	public String lsOutCold(HttpServletRequest req, Page<CoolregisterVo> page, String bTime, String op) {
+	public String lsOutCold(HttpServletRequest req, Page<CoolregisterVo> page, CoolregisterVo coolEn) {
 		page.getParams().put("coldopera", 1);
+		page.setPageSize(5);
+		if (coolEn != null) {
+			if (coolEn.getJg_name() == null) {
+				if (req.getSession().getAttribute(Constant.SESSION_SELOUTCOLD_KEY) != null) {
+					coolEn = (CoolregisterVo) req.getSession().getAttribute(Constant.SESSION_SELOUTCOLD_KEY);
+				}
+			} else {
+				req.getSession().setAttribute(Constant.SESSION_SELOUTCOLD_KEY, coolEn);
 
-		String time = bTime + " 00:00:00";
-		String time1 = bTime + " 23:59:59";
-		page.getParams().put("time", time);
-		page.getParams().put("time1", time1);
-		page.getParams().put("bTime", bTime);
-		page.getParams().put("op", op);
+			}
+		}
 
 		req.setAttribute("arealist", freezeBiz.lsArea());
 		req.setAttribute("cablist", freezeBiz.lsAll());
 		req.setAttribute("delist", freezeBiz.lsDepotCid2());
-		req.setAttribute("lsEnCold", coldBiz.lsEnCold(page));
+
+		req.setAttribute("lsFinEnReg", coldBiz.showFinEnReg());
+
+		req.setAttribute("lsEnCold", coldBiz.lsEnCold(page, coolEn));
 		req.setAttribute("ccslist", coldBiz.findAllCCS());
+
 		return "/service/listOutCoolReg.jsp";
 
+	}
+
+	// 显示没有完成的出库计划
+	@RequestMapping("showNoFinshOut")
+	public String showNoFinshOut(HttpServletRequest req, Page<CoolregisterVo> page) {
+		page.getParams().put("noFinshEnReg", "Y");
+		return lsOutCold(req, page, null);
 	}
 
 	// 增加出库计划
@@ -197,66 +254,68 @@ public class ColdAction {
 	}
 
 	@RequestMapping("addOutColdReg")
-	public String addOutColdReg(HttpServletRequest req, Integer regist_id, Integer emp_id) {
+	public String addOutColdReg(HttpServletRequest req, Integer regist_id, Integer emp_id, Page<CoolregisterVo> page) {
 		coldBiz.addOutColdReg(regist_id, emp_id);
-		return lsOutCold(req, new Page<CoolregisterVo>(),"null", "null");
+		return lsOutCold(req, page, null);
 	}
 
 	@RequestMapping("delOutColdReg")
-	public String delOutColdReg(HttpServletRequest req, Integer exe_id) {
+	public String delOutColdReg(HttpServletRequest req, Integer exe_id, Page<CoolregisterVo> page) {
 		coldBiz.delOutColdReg(exe_id);
-		return lsOutCold(req, new Page<CoolregisterVo>(),"null", "null");
+		return lsOutCold(req, page, null);
 
 	}
-	
-/*调度*/
-	
-	@RequestMapping("lsDDCold")
-	public String lsDDCold(HttpServletRequest req, Page<CoolregisterVo> page, String bTime) {
-		EmployVo employVo=(EmployVo) req.getSession().getAttribute(Constant.SESSION_USER_KEY);
-		page.getParams().put("emp_id", employVo.getEmp_id());		
-		if (bTime == "" || bTime == null || bTime.isEmpty() || bTime == "null") {
-			bTime = null;
-		} else {
-			String time = bTime + " 00:00:00";
-			String time1 = bTime + " 23:59:59";
-			page.getParams().put("time", time);
-			page.getParams().put("time1", time1);
-		}
 
+	/* 调度 */
+
+	@RequestMapping("lsDDCold")
+	public String lsDDCold(HttpServletRequest req, Page<CoolregisterVo> page, CoolregisterVo ddCool) {
+		EmployVo employVo = (EmployVo) req.getSession().getAttribute(Constant.SESSION_USER_KEY);
+		page.getParams().put("depe_name", employVo.getDepe_name());
+		page.getParams().put("emp_id", employVo.getEmp_id());
+		page.setPageSize(5);
+
+		if (ddCool != null) {
+			if (ddCool.getJg_name() == null) {
+				if (req.getSession().getAttribute(Constant.SESSION_SELDDCOLD_KEY) != null) {
+					ddCool = (CoolregisterVo) req.getSession().getAttribute(Constant.SESSION_SELDDCOLD_KEY);
+				}
+			} else {
+				req.getSession().setAttribute(Constant.SESSION_SELDDCOLD_KEY, ddCool);
+
+			}
+		}
 
 		req.setAttribute("arealist", freezeBiz.lsArea());
 		req.setAttribute("cablist", freezeBiz.lsAll());
 		req.setAttribute("delist", freezeBiz.lsDepotCid2());
-		
-		req.setAttribute("lsDDCold", coldBiz.ddSelByEmpId(page));
+
+		req.setAttribute("lsDDCold", coldBiz.ddSelByEmpId(page, ddCool));
 
 		return "/service/listDDCoolReg.jsp";
 
 	}
-	
+
 //完成入库
-	
+
 	@RequestMapping("finshDDCold")
-	public String finshDDCold(HttpServletRequest req,Integer exe_id) {
-		Execute e=new Execute();
+	public String finshDDCold(HttpServletRequest req, Integer exe_id) {
+		Execute e = new Execute();
 		e.setExe_id(exe_id);
-        e.setExe_end(new Date());
-        coldBiz.finshEnReg(e);
-		return lsDDCold(req,new Page<CoolregisterVo>(), "null");
+		e.setExe_end(new Date());
+		coldBiz.finshEnReg(e);
+		return lsDDCold(req, new Page<CoolregisterVo>(), null);
 
 	}
-	
+
 	@RequestMapping("finshDDOutCold")
-	public String finshDDOutCold(HttpServletRequest req,Integer exe_id) {
-		Execute e=new Execute();
+	public String finshDDOutCold(HttpServletRequest req, Integer exe_id) {
+		Execute e = new Execute();
 		e.setExe_id(exe_id);
-        e.setExe_end(new Date());
-     
-        
-        coldBiz.finshOutReg(e);
-        
-		return lsDDCold(req,new Page<CoolregisterVo>(), "null");
+		e.setExe_end(new Date());
+		coldBiz.finshOutReg(e);
+
+		return lsDDCold(req, new Page<CoolregisterVo>(), null);
 
 	}
 }

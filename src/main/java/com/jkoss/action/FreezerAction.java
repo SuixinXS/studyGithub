@@ -121,48 +121,29 @@ public class FreezerAction {
 
 //卡位增加
 	@RequestMapping("incabin")
-	public String inCabin(HttpServletRequest req, Cabin c) {
-		return lsCabin(req, null, null, freezeBiz.insertSelective(c));
+	public String inCabin(HttpServletRequest req, Cabin c,Page<Cabin> page) {
+		return lsCabin(req, page, null, freezeBiz.insertSelective(c));
 	}
 
 //卡位删除
 	@RequestMapping("delcabin")
-	public String delCabin(HttpServletRequest req, Integer cid) {
-		return lsCabin(req, null, null, freezeBiz.deleteCabinByPrimaryKey(cid));
+	public String delCabin(HttpServletRequest req, Integer cid,Page<Cabin> page) {
+		return lsCabin(req, page, null, freezeBiz.deleteCabinByPrimaryKey(cid));
 	}
 
 //卡位更新:1按id搜索放入表单  2接收信息进行修改
 	@ResponseBody
 	@RequestMapping("selcabinbycid")
 	public Cabin selcabinbycid(HttpServletRequest req, Integer cid) {
-
 		return freezeBiz.selectCabinByPrimaryKey(cid);
 	}
 
 	@RequestMapping("upcabin")
-	public String upCabin(HttpServletRequest req, Cabin c) {
-		return lsCabin(req, new Page<Cabin>(), null, freezeBiz.updateByPrimaryKeySelective(c));
+	public String upCabin(HttpServletRequest req, Cabin c,Page<Cabin> page) {
+		return lsCabin(req,page, null, freezeBiz.updateByPrimaryKeySelective(c));
 	}
 
-	/*
-	 * @RequestMapping("intest") public void intest() { Cabin record = new Cabin();
-	 * Depot d=new Depot(); for(int i = 52; i <= 60; i++) { record.setCab_id(i);
-	 * record.setCab_number(1); freezeBiz.updateByPrimaryKeySelective(record);
-	 * 
-	 * d.setCab_id(i); d.setDep_director("李大爷"); d.setDep_name("西卡");
-	 * freezeBiz.insertSelective(d); }
-	 */
 
-	/*
-	 * for (int i = 0; i <= 50; i++) { record.setArea_id(1); record.setCab_size(2);
-	 * record.setCab_no("东" + i); record.setCab_number(0);
-	 * record.setCab_address("东区"); record.setCoolno(0); record.setNotcoolno(0);
-	 * freezeBiz.insertSelective(record);
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
 
 	// 冷库卡位管理································
 

@@ -86,6 +86,13 @@ public class EmployImpl implements IEmployBiz {
 	@Transactional
 	public String addOneEp(Employ employ) {
 		// TODO Auto-generated method stub
+		if(employ.getEmp_name().equals("")) {
+			return "增加失败";
+		}
+		int i = selectEpByLg(employ.getEmp_login());
+		if (i==0) {
+			return "增加失败";
+		}
 		
 		return epDao.insertSelective(employ)==1?"增加成功":"增加失败";
 	}
@@ -99,7 +106,12 @@ public class EmployImpl implements IEmployBiz {
 	@Override
 	public String UpdateEpById(Employ employ) {
 		// TODO Auto-generated method stub
-		return epDao.updateByPrimaryKeySelective(employ)==1?"修改成功":"修改失败";
+		int i = selectEpByLg(employ.getEmp_login());
+		if(i==0){
+			return "账号已存在";
+		}else {
+			return epDao.updateByPrimaryKeySelective(employ)==1?"修改成功":"修改失败";
+		}
 	}
 
 	@Override
@@ -148,6 +160,16 @@ public class EmployImpl implements IEmployBiz {
 			return null;
 		}
 		return map;
+	}
+
+	@Override
+	public int selectEpByLg(String emp_login) {
+		// TODO Auto-generated method stub
+		int i = 0 ;
+		if (epDao.selectByLg(emp_login)!=null) {
+			return i;
+		}
+		return i=1;
 	}
 
 

@@ -6,7 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Coolregister {
     private Integer regist_id;
-
+    
+    private String regist_no;
+    
     private Integer exe_id;
 
     private Integer area_id;
@@ -41,7 +43,23 @@ public class Coolregister {
 
     private String phone;
 
-    public Integer getRegist_id() {
+    
+    
+    
+    public Coolregister() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getRegist_no() {
+		return regist_no;
+	}
+
+	public void setRegist_no(String regist_no) {
+		this.regist_no = regist_no;
+	}
+
+	public Integer getRegist_id() {
         return regist_id;
     }
 
@@ -185,15 +203,43 @@ public class Coolregister {
         this.phone = phone == null ? null : phone.trim();
     }
 
+	public Coolregister(Integer regist_id, String regist_no, Integer exe_id, Integer area_id, Integer cab_id,
+			Integer dep_id, Integer good_id, Integer ctm_id, Date regist_begin, Integer regist_state,
+			Integer regist_paystate, Float regist_cost, Date regist_paytime, Date regist_end, Float termperature,
+			Integer cooltype, String regist_remark, String operater, String phone) {
+		super();
+		this.regist_id = regist_id;
+		this.regist_no = regist_no;
+		this.exe_id = exe_id;
+		this.area_id = area_id;
+		this.cab_id = cab_id;
+		this.dep_id = dep_id;
+		this.good_id = good_id;
+		this.ctm_id = ctm_id;
+		this.regist_begin = regist_begin;
+		this.regist_state = regist_state;
+		this.regist_paystate = regist_paystate;
+		this.regist_cost = regist_cost;
+		this.regist_paytime = regist_paytime;
+		this.regist_end = regist_end;
+		this.termperature = termperature;
+		this.cooltype = cooltype;
+		this.regist_remark = regist_remark;
+		this.operater = operater;
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
-		return "Coolregister [regist_id=" + regist_id + ", exe_id=" + exe_id + ", area_id=" + area_id + ", cab_id="
-				+ cab_id + ", dep_id=" + dep_id + ", good_id=" + good_id + ", ctm_id=" + ctm_id + ", regist_begin="
-				+ regist_begin + ", regist_state=" + regist_state + ", regist_paystate=" + regist_paystate
-				+ ", regist_cost=" + regist_cost + ", regist_paytime=" + regist_paytime + ", regist_end=" + regist_end
-				+ ", termperature=" + termperature + ", cooltype=" + cooltype + ", regist_remark=" + regist_remark
-				+ ", operater=" + operater + ", phone=" + phone + "]";
+		return "Coolregister [regist_id=" + regist_id + ", regist_no=" + regist_no + ", exe_id=" + exe_id + ", area_id="
+				+ area_id + ", cab_id=" + cab_id + ", dep_id=" + dep_id + ", good_id=" + good_id + ", ctm_id=" + ctm_id
+				+ ", regist_begin=" + regist_begin + ", regist_state=" + regist_state + ", regist_paystate="
+				+ regist_paystate + ", regist_cost=" + regist_cost + ", regist_paytime=" + regist_paytime
+				+ ", regist_end=" + regist_end + ", termperature=" + termperature + ", cooltype=" + cooltype
+				+ ", regist_remark=" + regist_remark + ", operater=" + operater + ", phone=" + phone + "]";
 	}
+
+
     
     
 }

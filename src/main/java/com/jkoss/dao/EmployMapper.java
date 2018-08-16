@@ -37,4 +37,7 @@ public interface EmployMapper {
     //查全部叉车手，叉车职位id为1
     @Select("select * from employ where job_id=1")
 	List<Employ> findAllCCS();
+    
+    @Select("Select * From employ where emp_login=#{emp_login}")
+	Employ selectByLg(@Param("emp_login") String emp_login);
 }

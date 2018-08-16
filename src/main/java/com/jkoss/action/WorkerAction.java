@@ -114,5 +114,13 @@ public class WorkerAction {
 		return "listEmp.jsp";
 		
 	}
+
+	///异步验证用户账号是否同名
+	@RequestMapping("/yanzhenLg")
+	@ResponseBody
+    public int yanzhenLgNa(String emp_login) {
+		System.out.println(epBiz.selectEpByLg(emp_login));
+		return epBiz.selectEpByLg(emp_login);
+	}
 	/////《——————————————————————
 }

@@ -38,6 +38,8 @@ public interface IEmployBiz {
 	Map<Integer, DTreePriNode> generatePower(EmployVo employVo);
 
 	EmployVo selectEpByLgPw(String lgnName, String pwdword);
+	
+	int selectEpByLg(String emp_login);
 
 
 

@@ -2,6 +2,7 @@ package com.jkoss.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.jkoss.pojo.Cabin;
@@ -36,4 +37,9 @@ public interface DepotMapper {
 	
     @Select("select * from depot where dep_id=#{did}")
 	Depot selDepotByDid(Integer did);
+    
+    @Select("select a.* FROM depot as a LEFT JOIN cabin as b on a.cab_id=b.cab_id WHERE b.cab_id=#{cid} AND a.dep_address=#{dAddress}")
+    Depot valiDepAddress(@Param("cid")int cid, @Param("dAddress")String dAddress);
+    
+  
 }

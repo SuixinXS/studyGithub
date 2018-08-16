@@ -32,4 +32,7 @@ public interface CustomerMapper {
 	@Select("select a.*,b.ctm_type,b.pay_type from customer as a left join customer_type as b on a.ctm_id=b.ctm_id where a.ctm_id=#{cid}")
 	CustomerEx selCtmById(Integer cid);
 	
+	@Select("select * from customer where ctm_login=#{ctm_login}")
+	CustomerEx selCtmByLogin(String ctm_login);
+	
 }

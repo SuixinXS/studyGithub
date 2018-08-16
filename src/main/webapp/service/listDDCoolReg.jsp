@@ -16,17 +16,11 @@
 <script type="text/javascript">
 
    //进入jq
-   $(function(){ 
-	  
-	
+   $(function(){ 	
 	    if('${remsg}'!=null &&'${remsg}'!=''){		   
 		   alert('${remsg}');
 	   }
-	    
-	   
-   
-
-   
+  
    });   
 
 	  
@@ -99,14 +93,25 @@
 			  } 	  
 		  
 
-		  
-		  function sel(){	
-		    	
-		    	alert($("#bTime>input").val());
-
-		   	   window.location.href = "lsDDCold.do?bTime="+$("#bTime>input").val(); 
+			  function selby(){
+				   rno=-1;
+				   rdate=2999-12-29;
+			     if($("#selval").val()!=null && $("#selval").val()!=''){
+			    	 rno=$("#selval").val();
+			     }
+				  if($("#seltime").val()!=null && $("#seltime").val()!=''){
+					  rdate=$("#seltime").val();
+				  }
+				 window.location.href ="lsDDCold.do?jg_name="+rno+"&exe_begin="+rdate;
+			   };
+			   
+			   
 			  
-		  };  
+
+			  function clearsel(){
+				   $("#selval").val("");
+				   $("#seltime").val(" ");
+				   };		  
 		
 
    
@@ -118,27 +123,30 @@
 
 </head>
 <body>
-	<!-- 包含等待框 -->
-	<jsp:include page="../waittable.jsp" flush="true" />
+
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr valign="top">
 			<td bgcolor="#FFFFFF"><table width="96%" border="0"
 					align="center" cellpadding="4" cellspacing="1" bgcolor="#aec3de">
 					<tr align="left" bgcolor="">
-						<td colspan="14" class="optiontitle"><select>
-								<option>出库计划编号</option>
-								<option>客户名</option>
-						</select></td>
-
+						<td class="optiontitle">计划总数:</td>
+						<td colspan="13" class="optiontitle">${page.totalRecord }</td>
 					</tr>
+
 					<tr align="left" bgcolor="">
-						<td colspan="14" class="optiontitle" id="bTime">委托开始日期： <input
-							name="bTime" class="easyui-datebox"
+						<td colspan="14" class="optiontitle">计划编号<input id="selval"></input>
+							委托开始日期: <input id="seltime" class="easyui-datebox"
 							data-options="formatter:ww4,parser:w4" />
 
-							<button onclick="sel()">查询</button>
-						</td>
-
+							<button onclick="selby()">查询</button>
+							<button onclick="clearsel()">清除条件</button>
+					</tr>
+					<tr align="left" bgcolor="#F2FDFF">
+						<td colspan="14" class="optiontitle">条件显示：委托开始日期: <input
+							class="easyui-datebox" readonly="readonly"
+							data-options="formatter:ww3,parser:w3"
+							<c:if test="${sessionScope.selDdCold.exe_begin!=null }">value="<fmt:formatDate value="${sessionScope.selDdCold.exe_begin }" pattern="yyyy-MM-dd  HH:mm:ss"/>"  </c:if> />
+							<!-- <button onclick="showNoFinsh()">显示未完成计划</button> --></td>
 					</tr>
 					<tr align="left" bgcolor="#F2FDFF">
 						<td colspan="14" class="optiontitle">调度计划</td>
@@ -146,10 +154,11 @@
 					</tr>
 					<tr align="center">
 						<td align="center" bgcolor="#ebf0f7">计划</td>
+						<td align="center" bgcolor="#ebf0f7">计划编号</td>
+                        <td align="center" bgcolor="#ebf0f7">叉车手</td>
 
-
-						<td align="center" bgcolor="#ebf0f7">出库委托时间</td>
-						<td align="center" bgcolor="#ebf0f7">出库完成时间</td>
+						<td align="center" bgcolor="#ebf0f7">委托时间</td>
+						<td align="center" bgcolor="#ebf0f7">完成时间</td>
 						<td align="center" bgcolor="#ebf0f7">区</td>
 						<td align="center" bgcolor="#ebf0f7">卡位</td>
 						<td align="center" bgcolor="#ebf0f7">仓在卡中的位置</td>
@@ -162,7 +171,8 @@
 					<c:forEach items="${lsDDCold}" var="oneEnCold">
 						<tr align="center" bgcolor="#FFFFFF">
 							<td align="center">${oneEnCold.coldopera==0?'入库':'出库'}</td>
-
+							<td align="center">${oneEnCold.jg_name}</td>
+                            <td align="center">${oneEnCold.emp_name}</td>
 							<td align="center"><input name="exe_begin"
 								readonly="readonly" class="easyui-datetimebox"
 								data-options="formatter:ww3,parser:w3"

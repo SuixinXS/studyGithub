@@ -90,6 +90,11 @@
 			<if test="regist_id != null">
 				regist_id,
 			</if>
+
+			<if test="regist_no != null">
+				regist_no,
+			</if>
+
 			<if test="exe_id != null">
 				exe_id,
 			</if>
@@ -146,6 +151,10 @@
 			<if test="regist_id != null">
 				#{regist_id,jdbcType=INTEGER},
 			</if>
+			<if test="regist_no != null">
+				#{regist_no,jdbcType=VARCHAR},
+			</if>
+
 			<if test="exe_id != null">
 				#{exe_id,jdbcType=INTEGER},
 			</if>
@@ -291,11 +300,58 @@
 		regist_id = #{regist_id,jdbcType=INTEGER}
 	</update>
 
+
+
+
+
+	<!-- 订单列表 -->
+	<select id="lsCold"
+		resultType="com.jkoss.pojo.vo.CoolregisterVoCtm"
+		parameterType="com.jkoss.tool.Page">
+		select a.*,b.company_name,b.ctm_name,b.ctm_phone
+		from
+		coolregister as a
+		left join customer as b
+		on a.ctm_id=b.ctm_id
+		<where>
+
+			<if test="params.regist_no != null and params.regist_no !='-1'">
+				a.regist_no = #{params.regist_no,jdbcType=VARCHAR}
+			</if>
+			<if test="params.regist_begin != null">
+				a.regist_begin between #{params.regist_begin} and
+				#{params.tomorrow}
+			</if>
+			<if test="params.regist_id != null and params.regist_id !=99">
+				a.regist_id = #{params.regist_id,jdbcType=INTEGER}
+			</if>
+
+			<if test="params.regist_state != null">
+				a.regist_state = #{params.regist_state,jdbcType=INTEGER}
+			</if>
+
+		</where>
+		order by a.regist_id desc
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<select id="lsEnCold" parameterType="com.jkoss.tool.Page"
 		resultType="com.jkoss.pojo.vo.CoolregisterVo">
 		SELECT
-		a.regist_id,a.area_id,a.cab_id,a.dep_id,a.good_id,a.ctm_id,a.regist_begin,a.regist_state,a.regist_paystate,a.regist_cost,a.regist_paytime,a.regist_end,a.termperature,a.cooltype,a.regist_remark,a.operater,a.phone,
-		c.company_name,c.ctm_name,c.ctm_phone,b.exe_begin,b.exe_end,b.coldopera,b.exe_id,
+		a.regist_id,a.regist_no,a.area_id,a.cab_id,a.dep_id,a.good_id,a.ctm_id,a.regist_begin,a.regist_state,a.regist_paystate,a.regist_cost,a.regist_paytime,a.regist_end,a.termperature,a.cooltype,a.regist_remark,a.operater,a.phone,
+		c.company_name,c.ctm_name,c.ctm_phone,b.exe_begin,b.exe_end,b.coldopera,b.exe_id,b.jg_name,
 		d.emp_name,e.emp_id from
 		coolregister as a
 		LEFT JOIN execute as b on
@@ -306,15 +362,26 @@
 		d on
 		e.emp_id=d.emp_id
 		<where>
+			a.regist_state!=4
 			<if test="params.coldopera!=null">
-				b.coldopera=#{params.coldopera,jdbcType=INTEGER}
+				and b.coldopera=#{params.coldopera,jdbcType=INTEGER}
 			</if>
 
-			<if test="params.bTime!=null">
-				and b.exe_begin between #{params.time,jdbcType=TIMESTAMP}
-				and
-				#{params.time1,jdbcType=TIMESTAMP}
+			<if test="params.jg_name!=null and  params.jg_name!='-1'">
+				and b.jg_name = #{params.jg_name,jdbcType=VARCHAR}
 			</if>
+
+			<if test="params.exe_begin!=null">
+				and b.exe_begin between
+				#{params.exe_begin,jdbcType=TIMESTAMP}
+				and
+				#{params.tomorrow}
+			</if>
+
+			<if test="params.noFinshEnReg!=null">
+				and b.exe_end is null
+			</if>
+
 		</where>
 
 	</select>
@@ -361,26 +428,11 @@
 		b.exe_id=#{eid} and b.coldopera=0 or b.coldopera=2
 	</select>
 
-	<select id="lsCold"
-		resultType="com.jkoss.pojo.vo.CoolregisterVoCtm"
-		parameterType="com.jkoss.tool.Page">
-		select a.*,b.company_name,b.ctm_name,b.ctm_phone
-		from
-		coolregister as a
-		left join customer as b
-		on a.ctm_id=b.ctm_id
-		<where>
-			<if test="params.regist_id != null and params.regist_id !=99">
-				a.regist_id = #{params.regist_id,jdbcType=INTEGER}
-			</if>
 
-		</where>
-		order by a.regist_id desc
-	</select>
 	<select id="showReg"
 		resultType="com.jkoss.pojo.vo.CoolregisterVo">
 		SELECT
-		a.regist_id,a.regist_paystate,c.good_name,c.good_type from
+		a.regist_id,a.regist_no,a.regist_paystate,c.good_name,c.good_type from
 		coolregister as a left JOIN execute as b on a.regist_id=b.regist_id
 		LEFT JOIN goodinfo as c on a.regist_id=c.regist_id
 		where a.area_id is
@@ -388,22 +440,63 @@
 	</select>
 
 
+
+
+	<select id="showFinEnReg"
+		resultType="com.jkoss.pojo.vo.CoolregisterVo">
+		SELECT
+		a.regist_id,a.regist_no,a.regist_paystate,c.good_name,c.good_type,e.dep_address,f.cab_no,g.area_name
+		FROM coolregister as a
+		left JOIN execute as b on
+		a.regist_id=b.regist_id
+		LEFT JOIN goodinfo as c on
+		a.regist_id=c.regist_id
+		LEFT JOIN coolregister as d on
+		b.regist_id=d.regist_id
+		LEFT JOIN depot as e on a.dep_id=e.dep_id
+		LEFT
+		JOIN cabin as f on a.cab_id=f.cab_id
+		left join areainfo as g ON
+		a.area_id=g.area_id
+		where
+		b.exe_end is not NULL
+		AND b.coldopera =0
+		AND
+		a.regist_state!=4
+		AND
+		b.regist_id in(select regist_id from execute group
+		by regist_id having
+		count(1)<![CDATA[ < ]]>2)
+		and exe_end is not null
+	</select>
+
 	<select id="ddSelByEmpId" parameterType="com.jkoss.tool.Page"
 		resultType="com.jkoss.pojo.vo.CoolregisterVo">
 		SELECT
-		a.exe_id,a.regist_id,a.exe_begin,d.good_name,d.good_type,c.area_id,c.cab_id,c.dep_id,e.dep_address,a.coldopera
-		FROM
-		execute as a LEFT JOIN execute2employ as b on a.exe_id=b.exe_id
-		LEFT JOIN coolregister as c on c.regist_id=a.regist_id
-		left join goodinfo as d on d.regist_id=c.regist_id
-		LEFT JOIN depot as e on e.dep_id=c.dep_id
-
+		a.exe_id,a.regist_id,a.exe_begin,a.exe_end,a.jg_name,d.good_name,d.good_type,c.area_id,c.cab_id,c.dep_id,e.dep_address,a.coldopera,f.emp_name
+		FROM execute as a
+		LEFT JOIN execute2employ as b on a.exe_id=b.exe_id
+		LEFT JOIN coolregister
+		as c on c.regist_id=a.regist_id
+		LEFT JOIN
+		goodinfo as d on
+		d.regist_id=c.regist_id
+		LEFT JOIN depot as e on
+		e.dep_id=c.dep_id
+		LEFT
+		JOIN employ as f on f.emp_id=b.emp_id
 		<where>
-			b.emp_id=#{params.emp_id} and a.exe_end is null
+			a.exe_end is null
+			<if test="params.depe_name!='开发部' ">
+				and b.emp_id=#{params.emp_id}
+			</if>
 
-			<if test="params.bTime!=null">
-				and a.exe_begin between #{params.time,jdbcType=TIMESTAMP}
-				and #{params.time1,jdbcType=TIMESTAMP}
+			<if test="params.jg_name!=null and params.jg_name!='-1'">
+				and a.jg_name=#{params.jg_name}
+			</if>
+			<if test="params.exe_begin!=null">
+				and a.exe_begin between #{params.exe_begin,jdbcType=TIMESTAMP}
+				and #{params.tomorrow,jdbcType=TIMESTAMP}
 			</if>
 		</where>
 

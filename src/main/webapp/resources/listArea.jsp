@@ -33,26 +33,9 @@
 	   
 
 	   
-		   $(".subtn").click(function(){			 
-				  if($(this).val()=="修改"){				  					  
-					 if($("#areaName2").val()==null || $("#areaName2").val()==''){
-						alert("区域名不能为空");
-						}  
-	                  else{
-							 $.ajax({					
-								   type:"post",       
-						           url:"rename.do?area_name="+ $("#areaName2").val(),
-						           dataType:"json",
-						           success:function(json){
-						           if(json=="名字已存在"){
-						        	    alert(json); 
-						    	        return flase; 
-						        	   }						         
-						        	 $("#upfrom").submit();
-                                  }, 
-						            }); 
-					}  
-			 } 	//修改				  
+		
+			 
+	   $(".subtn").click(function(){
 				  if($(this).val()=="添加"){				  					  
 						 if($("#areaName").val()==null || $("#areaName").val()==''){
 							alert("区域名不能为空");
@@ -114,8 +97,7 @@
 
 </head>
 <body>
-	<!-- 包含等待框 -->
-	<jsp:include page="../waittable.jsp" flush="true" />
+
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr valign="top">
 			<td bgcolor="#FFFFFF"><table width="96%" border="0"
@@ -190,8 +172,7 @@
 							name="area_remark"></textarea></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="button" value="修改" class="subtn"
-						id="upbtn" /></td>
+					<td colspan="2"><input type="submit" value="修改" /></td>
 				</tr>
 			</table>
 		</form>

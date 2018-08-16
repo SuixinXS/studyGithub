@@ -23,8 +23,7 @@
 
 </head>
 <body>
-	<!-- 包含等待框 -->
-	<jsp:include page="../waittable.jsp" flush="true" />
+
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr valign="top">
 			<td bgcolor="#FFFFFF"><table width="96%" border="0"
@@ -49,7 +48,7 @@
 
 							
 							<td align="center">${oneReg.regist_paystate==1?'已付':'未付'}</td>
-							<td align="center">${oneReg.regist_id}</td>
+							<td align="center">${oneReg.regist_no}</td>
 							<td align="center">${oneReg.good_name}</td>
 							<td align="center">${oneReg.good_type}</td>
 

@@ -36,9 +36,11 @@ public class CtmAction {
 		if (c.getCtm_type() == null) {
 			if (req.getSession().getAttribute(Constant.SESSION_SELCSTM_KEY) != null) {
 				c = (CustomerEx) req.getSession().getAttribute(Constant.SESSION_SELCSTM_KEY);
+	
 			}
 		} else {
 			req.getSession().setAttribute(Constant.SESSION_SELCSTM_KEY, c);
+		
 		}
 		req.setAttribute("ctmlist", ctmBiz.lsCtmAll(page, c));
 		req.setAttribute("remsg", msg);
@@ -47,14 +49,15 @@ public class CtmAction {
 	}
 //客户账号停用
 	@RequestMapping("stopctm")
-	public String stopCtm(HttpServletRequest req, Integer cid) {
-		return lsCtm(req, null, null, ctmBiz.stopCstm(cid));
+	public String stopCtm(HttpServletRequest req, Integer cid,Page<CustomerEx> page) {
+		
+		return lsCtm(req, page, null, ctmBiz.stopCstm(cid));
 
 	}
 //客户增加
 	@RequestMapping("addctm")
-	public String addCtm(HttpServletRequest req, CustomerEx record) {
-		return lsCtm(req, null, null, ctmBiz.insertSelective(record));
+	public String addCtm(HttpServletRequest req, CustomerEx record,Page<CustomerEx> page) {
+		return lsCtm(req, page, null, ctmBiz.insertSelective(record));
 
 	}
 //客户编辑：1 按id找信息加载到前台表单  2，提交信息进行修改
@@ -66,8 +69,8 @@ public class CtmAction {
 	}
 
 	@RequestMapping("upctm")
-	public String aupCtm(HttpServletRequest req, CustomerEx record) {
-		return lsCtm(req, null, null, ctmBiz.updateByPrimaryKeySelective(record));
+	public String aupCtm(HttpServletRequest req, CustomerEx record,Page<CustomerEx> page) {
+		return lsCtm(req, page, null, ctmBiz.updateByPrimaryKeySelective(record));
 	}
 
 }

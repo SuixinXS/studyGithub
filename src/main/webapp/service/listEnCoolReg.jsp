@@ -17,6 +17,7 @@
 
    //进入jq
    $(function(){ 
+	  /*  console.log(${lsReg}); */
 	  
 	   //初始化jq-easyUI对话框
 	   $("#dlg,dlg2").window({onBeforeClose:function(){
@@ -93,7 +94,10 @@
 					});
    
    
-   
+	
+		
+
+	
    
    
    
@@ -104,7 +108,9 @@
 				url: "upEnCold1.do?eid=" + eid,
 				dataType: "json",
 				success: function(json) {
-					$("#dlg2").form('load', json);													
+					$("#dlg2").form('load', json);	
+					$("#saveUpAddress").val($("#upAddress").val());
+					
 					$("#dlg2").window("open");
 
 	            
@@ -117,14 +123,13 @@
 	
 	    function delEnCold(eid){	
 	    	
-	      confirm("是否刪除该计划");
-	   	  window.location.href = "delEnCold.do?eid="+eid;
+	     if(confirm("是否刪除该计划")){
+	   	  window.location.href = "delEnCold.do?eid="+eid;}
 		  
 	  };
 	  
 	  
-	  
-	
+
 	  
 	  function ww3(date){ 
 		   var y = date.getFullYear(); 
@@ -151,6 +156,9 @@
 		   } 
 		  } 
 
+	
+		  
+		  
 		  
 		  
 		  
@@ -181,15 +189,32 @@
 		  
 
 		  
-		  function sel(){	
-		    	
-		    	alert($("#bTime>input").val());
-
-		   	   window.location.href = "lsEnCold.do?bTime="+$("#bTime>input").val(); 
-			  
-		  };  
+	
 		
-		  
+		  function selby(){
+			   rno=-1;
+			   rdate=2999-12-29;
+		     if($("#selval").val()!=null && $("#selval").val()!=''){
+		    	 rno=$("#selval").val();
+		     }
+			  if($("#seltime").val()!=null && $("#seltime").val()!=''){
+				  rdate=$("#seltime").val();
+			  }
+			 window.location.href ="lsEnCold.do?jg_name="+rno+"&exe_begin="+rdate;
+		   };
+		   
+		   
+		   function showNoFinsh(){
+			
+		
+			 window.location.href ="showNoFinsh.do";
+		   };
+		   
+		  		  
+		   function clearsel(){
+			   $("#selval").val("");
+			   $("#seltime").val(" ");
+			   };
 		  
 		/* 	$("#selbyarea").change(	
 					alert("1");
@@ -224,27 +249,31 @@
 
 </head>
 <body>
-	<!-- 包含等待框 -->
-	<jsp:include page="../waittable.jsp" flush="true" />
+
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr valign="top">
 			<td bgcolor="#FFFFFF"><table width="96%" border="0"
 					align="center" cellpadding="4" cellspacing="1" bgcolor="#aec3de">
 					<tr align="left" bgcolor="">
-						<td colspan="14" class="optiontitle"><select>
-								<option>入库计划编号</option>
-								<option>客户名</option>
-						</select></td>
-
+						<td class="optiontitle">计划总数:</td>
+						<td colspan="13" class="optiontitle">${page.totalRecord }</td>
 					</tr>
+
 					<tr align="left" bgcolor="">
-						<td colspan="14" class="optiontitle" id="bTime">委托开始日期： <input 
-							name="bTime" class="easyui-datebox"
-							data-options="formatter:ww4,parser:w4" /> 
+						<td colspan="14" class="optiontitle">计划编号<input id="selval"<%-- <c:if test="${sessionScope.selColdReg.regist_no!='-1' }"> value="${sessionScope.selColdReg.regist_no }"</c:if> --%>
+							></input>
+							委托开始日期: <input id="seltime" class="easyui-datebox"
+							data-options="formatter:ww4,parser:w4" />
 
-							<button onclick="sel()">查询</button>
-						</td>
-
+							<button onclick="selby()">查询</button>
+							<button onclick="clearsel()">清除条件</button>
+					</tr>
+					<tr align="left" bgcolor="#F2FDFF">
+						<td colspan="14" class="optiontitle">条件显示：委托开始日期: <input
+							class="easyui-datebox" readonly="readonly"
+							data-options="formatter:ww3,parser:w3"
+							<c:if test="${sessionScope.selEnCold.exe_begin!=null }">value="<fmt:formatDate value="${sessionScope.selEnCold.exe_begin }" pattern="yyyy-MM-dd  HH:mm:ss"/>"  </c:if> />
+							<button onclick="showNoFinsh()">显示未完成计划</button></td>
 					</tr>
 					<tr align="left" bgcolor="#F2FDFF">
 						<td colspan="14" class="optiontitle">入库计划 <span
@@ -273,19 +302,18 @@
 					<c:forEach items="${lsEnCold}" var="oneEnCold">
 						<tr align="center" bgcolor="#FFFFFF">
 							<td align="center">${oneEnCold.coldopera==0?'入库':'出库'}</td>
-							<td align="center">${oneEnCold.regist_state==0?'登记':oneEnCold.regist_state==1?'已安排打冷':oneEnCold.regist_state==2?'中断':oneEnCold.regist_state==3?'结束打冷':'作废'}</td>
+							<td align="center">${oneEnCold.regist_state==0?'登记':oneEnCold.regist_state==1?'已安排打冷':oneEnCold.regist_state==2?'中断':oneEnCold.regist_state==3?'结束打冷':oneEnCold.regist_state==4?'作废':'完成'}</td>
 							<td align="center">${oneEnCold.regist_paystate==1?'已付':'未付'}</td>
-							<td align="center">${oneEnCold.exe_id}</td>
-							<td align="center">${oneEnCold.regist_id}</td>
+							<td align="center">${oneEnCold.jg_name}</td>
+							<td align="center">${oneEnCold.regist_no}</td>
 							<td align="center">${oneEnCold.ctm_name}</td>
 							<td align="center">${oneEnCold.ctm_phone}</td>
-							<td align="center">
-							<input name="exe_begin"
+							<td align="center"><input name="exe_begin"
 								readonly="readonly" class="easyui-datetimebox"
 								data-options="formatter:ww3,parser:w3"
 								value="<fmt:formatDate value="${oneEnCold.exe_begin}" pattern="yyyy-MM-dd  HH:mm:ss"/>" />
-								
-								</td>
+
+							</td>
 
 							<td align="center"><input name="exe_end" readonly="readonly"
 								class="easyui-datetimebox"
@@ -327,57 +355,114 @@
 			<td align="center" style="color: red">${msg}</td>
 		</tr>
 	</table>
+	<script type="text/javascript">
+function checkAdd(){
+	var flag=false;
+	$(".addMsg").html("");
+	if($("#selbyarea option:selected").html()=="未选择区域"){
+		$("#addMsg1").html("请选择区域");
+		flag=true;
+	}
+	
+	if($("#selbycabin option:selected").html()=="未选择卡位"){
+		$("#addMsg2").html("请选择卡位");
+		flag=true;
+	}
+	
+	if($("#addAddress").val()==null ||$("#addAddress").val()=='' ){
+		$("#addMsg3").html("请填地址");
+		
+		flag=true;
+	}
+	
+	if($("#addDepName").val()==null ||$("#addDepName").val()=='' ){
+		$("#addMsg4").html("请填仓库名/车牌号");
+		flag=true;
+	}
+	
+	$.ajax({
+		type : "post",
+		url : "valiDepAddress.do?cid=" + $("#selbycabin").val()+"&dAddress="+$("#addAddress").val(),
+		dataType : "json",
+		async:false,
+		success : function(json) {
+        if(json=="仓库已存在"){
+        	$("#addMsg3").html("地址重复");
+        	flag=true;        	
+        }
+        if(json=="没有该地址"){
+        	$("#addMsg3").html("没有该地址");
+        	flag=true;        	
+        }
+		},
 
+	});
+	
+if(flag){
+	/* $("#addMsg").html("地址重复5"); */
+	return false;}
+	
+	
+};
+</script>
 
 	<div id="dlg" class="easyui-dialog" title="添加"
 		data-options="iconCls:'icon-save',closed:true,modal:true"
 		style="display: none; width: 400px; height: 300px; padding: 10px; top: 30px">
-		<form action="addEnCold.do">
+		<form action="addEnCold.do" onSubmit="return checkAdd()">
 			<table>
 
 				<tr>
-					<td>订单ID<a href="/jk_freezer/service/showReg.do"
+					<td>订单编号<a href="/jk_freezer/service/showReg.do"
 						target="_blank">/订单显示</a></td>
-					<td><input name="regist_id" class="easyui-validatebox"
-						data-options="required:true" /></td>
+					<td><select name="regist_id">
+							<c:forEach items="${lsReg1}" var="oneReg">
+								<option value="${oneReg.regist_id}">${oneReg.regist_no}</option>
+							</c:forEach>
+					</select></td>
 				</tr>
 
 				<tr>
 					<td>区</td>
-					<td><select id="selbyarea" name="area_id" class="easyui-validatebox"
-						data-options="required:true" >
-						<option>未选择区域</option>
+					<td><select id="selbyarea" name="area_id"
+						class="easyui-validatebox" data-options="required:true">
+							<option>未选择区域</option>
 							<c:forEach items="${arealist}" var="oneArea">
 								<option value="${oneArea.area_id}">${oneArea.area_name}</option>
 							</c:forEach>
-					</select></td>
+					</select>
+					<span id="addMsg1" class="addMsg" style="color: red"></span>
+					</td>
 
 				</tr>
 				<tr>
 					<td>卡位<a href="/jk_freezer/resource/showCab.do"
 						target="_blank">/卡位显示</a>
-						</td>
-					<td><!-- <input name="cab_id" class="easyui-validatebox"
-						data-options="required:true"/> -->
-						
-						
-					<select id="selbycabin" name="cab_id" >
-					<option>未选择卡位</option>
-						
+					</td>
+					<td>
+						<select id="selbycabin" name="cab_id">
+							<option>未选择卡位</option>
+
 					</select>
-						</td>
+					<span id="addMsg2" class="addMsg" style="color: red"></span>
+					</td>
 				</tr>
 
 				<tr>
 					<td>仓库在卡位中的位置</td>
-					<td><input name="dep_address" class="easyui-validatebox"
-						data-options="required:true" /></td>
+					<td><input id="addAddress" name="dep_address"
+						class="easyui-validatebox" data-options="required:true" />
+					<span id="addMsg3" class="addMsg" style="color: red"></span>
+						</td>
+						
 				</tr>
 
 				<tr>
 					<td>仓库名/车牌号</td>
-					<td><input name="dep_name" class="easyui-validatebox"
-						data-options="required:true" /></td>
+					<td><input id="addDepName" name="dep_name"
+						class="easyui-validatebox" data-options="required:true" />
+						<span id="addMsg4" class="addMsg" style="color: red"></span>
+						</td>
 				</tr>
 				<tr>
 					<td>叉车手</td>
@@ -385,10 +470,13 @@
 							<c:forEach items="${ccslist}" var="CCS">
 								<option value="${CCS.emp_id}">${CCS.emp_name}</option>
 							</c:forEach>
-					</select></td>
+					</select>
+					</td>
 				</tr>
-
-
+<!-- 
+				<tr>
+					<td colspan="2"><span id="addMsg" style="color: red"></span></td>
+				</tr> -->
 				<tr>
 					<td colspan="2"><input type="submit" value="添加" /></td>
 				</tr>
@@ -397,11 +485,56 @@
 	</div>
 
 
+	<script type="text/javascript">
+function checkUp(){
+	var flag=false;
+	$(".upMsg").html("");
+	if($("#upAddress").val()==null ||$("#upAddress").val()=='' ){
+		$("#upMsg1").html("请填地址");
+		flag=true; 
+	}
+	
+	if($("#upDepName").val()==null ||$("#upDepName").val()=='' ){
+		$("#upMsg2").html("请填仓库名/车牌号");
+		flag=true; 
+	}
+	
+	
+	if($("#upAddress").val()!=$("#saveUpAddress").val()){
+	$.ajax({
+		type : "post",
+		url : "valiDepAddress.do?cid=" + $("#selbycabin1").val()+"&dAddress="+$("#upAddress").val(),
+		dataType : "json",
+		async:false,
+		success : function(json) {
+        if(json=="仓库已存在"){
+        	$("#upMsg1").html("地址重复");
+        	flag=true;        	
+        }
+        
+        if(json=="没有该地址"){
+        	$("#upMsg1").html("没有该地址");
+        	flag=true;        	
+        }
+		
+		},
+
+	});
+	}
+if(flag){
+	
+	return false;}
+	
+	
+};
+</script>
+
+
 
 	<div id="dlg2" class="easyui-dialog" title="编辑"
 		data-options="iconCls:'icon-save',closed:true,modal:true"
 		style="display: none; width: 400px; height: 300px; padding: 10px; top: 30px">
-		<form action="upEnCold2.do">
+		<form action="upEnCold2.do" onSubmit="return checkUp()">
 			<table>
 
 
@@ -417,26 +550,28 @@
 				<tr>
 					<td>卡位<a href="/jk_freezer/resource/showCab.do"
 						target="_blank">/卡位显示</a></td>
-					<td><select name="cab_id" id="selbycabin1">
-						<c:forEach items="${cablist}" var="oneCab">
+					<td><select name="cab_id" id="selbycabin1"
+						class="easyui-validatebox" data-options="required:true">
+							<c:forEach items="${cablist}" var="oneCab">
 								<option value="${oneCab.cab_id}">${oneCab.cab_no}</option>
 							</c:forEach>
-					</select>
-					 <input name="dep_id" type="hidden" />
-						<input name="exe_id" type="hidden" /> <input name="regist_id"
-						type="hidden" /></td>
+					</select> <input name="dep_id" type="hidden" /> <input name="exe_id"
+						type="hidden" /> <input name="regist_id" type="hidden" /></td>
 				</tr>
 
 				<tr>
 					<td>仓库在卡位中的位置</td>
-					<td><input name="dep_address" class="easyui-validatebox"
-						data-options="required:true" /></td>
+					<td><input id="upAddress" name="dep_address" class="easyui-validatebox"
+						data-options="required:true"/>
+						<input id="saveUpAddress" type="hidden"></input>
+						<span id="upMsg1" class="upMsg" style="color: red">
+						</td>
 				</tr>
 
 				<tr>
 					<td>仓库名/车牌号</td>
-					<td><input name="dep_name" class="easyui-validatebox"
-						data-options="required:true" /></td>
+					<td><input id="upDepName" name="dep_name" class="easyui-validatebox"
+						data-options="required:true"/><span id="upMsg2" class="upMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>叉车手</td>
@@ -446,7 +581,9 @@
 							</c:forEach>
 					</select></td>
 				</tr>
-
+<tr>
+					<td colspan="2"><span id="upMsg" style="color: red"></span></td>
+				</tr>
 
 				<tr>
 					<td colspan="2"><input type="submit" value="编辑" /></td>

@@ -29,6 +29,7 @@
 		   },200);
 	   }});
 	   
+	 
 	   
 	   
 	   //监听
@@ -63,7 +64,7 @@
   
   function selCtm(){
 
-	  //springmvc 不能接受null的参数 难受！！！！
+
 	  var selType=99;
 	  var selState=99;
 	  var selGrade=99;
@@ -80,48 +81,59 @@
       window.location.href = "lsctm.do?company_type="+selType+"&ctm_state="+selState+"&ctm_type="+selGrade+"&pay_type="+selPay;	  
 
   };
+  
+  function cleaSelBox(){
+	  $("#selType").val("未选择客户类型");
+	  $("#selState").val("未选择账号状态");
+	  $("#selGrade").val("未选择客户等级");
+	  $("#selPay").val("未选择客户支付方式");
+	  
+  }
 
 </script>
 
-<%
-	//判断权限 :session中取回用户，有权限继续，没权限导航去错误页
-%>
+
 
 </head>
 <body>
-	<!-- 包含等待框 -->
-	<jsp:include page="../waittable.jsp" flush="true" />
+
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr valign="top">
 			<td bgcolor="#FFFFFF"><table width="96%" border="0"
 					align="center" cellpadding="4" cellspacing="1" bgcolor="#aec3de">
 					<tr align="left" bgcolor="#F2FDFF">
-						<td colspan="10" class="optiontitle">客户管理 	
-						<select id="selType">
+						<td colspan="10" class="optiontitle">客户管理
+						 	
+				
+						<select id="selType" name="company_type">
 								<option>未选择客户类型</option>							
-									<option value="0">私人</option>
-									<option value="1">公司</option>			
+									<option value="0" ${sessionScope.selCustomerEx.company_type==0?'selected':''}>私人</option>
+									<option value="1" ${sessionScope.selCustomerEx.company_type==1?'selected':''}>公司</option>			
 						</select>
-						<select id="selState">
+						<select id="selState" name="ctm_state">
 								<option>未选择账号状态</option>							
-									<option value="0">不可用</option>
-									<option value="1">可用</option>			
+									<option value="0" ${sessionScope.selCustomerEx.ctm_state==0?'selected':''}>不可用</option>
+									<option value="1" ${sessionScope.selCustomerEx.ctm_state==1?'selected':''}>可用</option>			
 						</select>
-						<select id="selGrade">
+						<select id="selGrade" name="ctm_type">
 								<option>未选择客户等级</option>							
-									<option value="0">普通</option>
-									<option value="1">大客户</option>		
-									<option value="2">VIP</option>			
+									<option value="0" ${sessionScope.selCustomerEx.ctm_type==0?'selected':''}>普通</option>
+									<option value="1" ${sessionScope.selCustomerEx.ctm_type==1?'selected':''}>大客户</option>		
+									<option value="2" ${sessionScope.selCustomerEx.ctm_type==2?'selected':''}>VIP</option>			
 						</select>
 						
-							<select id="selPay">
+							<select id="selPay" name="pay_type">
 								<option>未选择客户支付方式</option>							
-									<option value="0">非月结</option>
-									<option value="1">月结</option>		
+									<option value="0" ${sessionScope.selCustomerEx.pay_type==0?'selected':''}>非月结</option>
+									<option value="1" ${sessionScope.selCustomerEx.pay_type==1?'selected':''}>月结</option>		
 									
 						</select>
 						<button onclick="selCtm()">查询</button> 
+						<button onclick="cleaSelBox()">清空</button> 
+				
+						
 						</td>
+						
 					</tr>
 					<tr align="center">
 						<td align="center" bgcolor="#ebf0f7">客户名</td>
