@@ -99,8 +99,8 @@
 	}
 
 	   function delDepot(d_id){
-	   confirm("是否刪除该仓库");
-	   location.href="deldepot.do?d_id="+d_id;	  	   
+	   if(confirm("是否刪除该仓库")){
+	   location.href="deldepot.do?d_id="+d_id;} 	   
 	  };
 	  
      function upDepot(d_id){	   
@@ -182,7 +182,7 @@
 			<td align="center" style="color: red">${msg}</td>
 		</tr>
 	</table>
-	<div id="dlg" class="easyui-dialog" title="添加卡位信息"
+	<div id="dlg" class="easyui-dialog" title="添加仓库信息"
 		data-options="iconCls:'icon-save',closed:true,modal:true"
 		style="display: none; width: 400px; height: 300px; padding: 10px; top: 30px">
 		<form action="indepot.do">

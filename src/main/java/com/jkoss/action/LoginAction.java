@@ -23,11 +23,8 @@ public class LoginAction {
 	private IEmployBiz epBiz;
 	
 	@RequestMapping("lgn")
-	public String 登录(HttpServletRequest req,String lgnName, String pwdword) {
-	
-		EmployVo employVo = epBiz.selectEpByLgPw(lgnName,pwdword);
-		
-		
+	public String 登录(HttpServletRequest req,String lgnName, String pwdword) {	
+		EmployVo employVo = epBiz.selectEpByLgPw(lgnName,pwdword);		
 		if (employVo!=null&&employVo.getEmp_state()==1) {
 			req.getSession().setAttribute(Constant.SESSION_USER_KEY,employVo);
 			return "/main.jsp";
@@ -56,4 +53,7 @@ public class LoginAction {
 		req.getSession().removeAttribute(Constant.SESSION_USER_KEY);
 		return "/index.jsp";
 	}
+	
+	
+	
 }

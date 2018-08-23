@@ -11,8 +11,6 @@ public class CoolregisterVoCtm extends Coolregister {
     private String ctm_login;
     
     
-    
-    
 	public CoolregisterVoCtm() {
 		super();
 		// TODO Auto-generated constructor stub

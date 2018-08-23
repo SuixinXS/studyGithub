@@ -23,11 +23,12 @@ public class CtmImplBiz implements ICtmBiz {
 	
 	@Override
 	public List<CustomerEx> lsCtmAll(Page<CustomerEx> page,CustomerEx c) {	
+		if(c!=null) {
 		page.getParams().put("ctm_id", c.getCtm_id());
 		page.getParams().put("company_type", c.getCompany_type());		
 		page.getParams().put("ctm_state",c.getCtm_state());
 		page.getParams().put("ctm_type",c.getCtm_type());
-		page.getParams().put("pay_type",c.getPay_type());
+		page.getParams().put("pay_type",c.getPay_type());}
 		return customerDao.lsCtmAll(page);
 	}
 	
@@ -66,9 +67,22 @@ public class CtmImplBiz implements ICtmBiz {
 		
 		return "修改成功";
 	}
-	
-	
 
+	@Override
+	public String checkCtmLogin(String ctm_login) {
+
+		if(customerDao.selCtmByLogin(ctm_login)!=null) {
+			return "重名";
+		}
+		return "可用";
+	}
+	
+	
+	public String checkCtmLogin1(Integer ctmId) {
+
+		
+		return customerDao.selectByPrimaryKey(ctmId).getCtm_login();
+	}
 
 	
 	 

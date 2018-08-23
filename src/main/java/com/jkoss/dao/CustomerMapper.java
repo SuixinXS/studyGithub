@@ -35,4 +35,6 @@ public interface CustomerMapper {
 	@Select("select * from customer where ctm_login=#{ctm_login}")
 	CustomerEx selCtmByLogin(String ctm_login);
 	
+	Customer selectByLoginName(String ctm_login);
+	
 }

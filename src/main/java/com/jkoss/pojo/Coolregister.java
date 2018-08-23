@@ -23,7 +23,7 @@ public class Coolregister {
 
     private Date regist_begin;
 
-    private Integer regist_state;//0  登记 1  已安排打冷 2  中断 3  结束打冷 4  作废 
+    private Integer regist_state;//0  登记 1  已安排打冷 2  中断 3  结束打冷 4  作废  5 完成
 
     private Integer regist_paystate;//'0 未付  1 已付',
 
@@ -42,9 +42,6 @@ public class Coolregister {
     private String operater;//0 出库1入库
 
     private String phone;
-
-    
-    
     
     public Coolregister() {
 		super();

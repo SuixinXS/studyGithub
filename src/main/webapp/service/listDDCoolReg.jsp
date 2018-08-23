@@ -156,7 +156,6 @@
 						<td align="center" bgcolor="#ebf0f7">计划</td>
 						<td align="center" bgcolor="#ebf0f7">计划编号</td>
                         <td align="center" bgcolor="#ebf0f7">叉车手</td>
-
 						<td align="center" bgcolor="#ebf0f7">委托时间</td>
 						<td align="center" bgcolor="#ebf0f7">完成时间</td>
 						<td align="center" bgcolor="#ebf0f7">区</td>

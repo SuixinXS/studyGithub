@@ -31,14 +31,14 @@ public class ColdAction {
 	@Autowired
 	FreezerImpleBiz freezeBiz;
 
-	/* 订单 ················································· */
-//订单列表
+/* 订单 ················································· */
+    //订单列表
 	@RequestMapping("lsColdReg")
-	public String lsColdReg(HttpServletRequest req, Page<CoolregisterVoCtm> page, String msg,
-			CoolregisterVoCtm coolReg) {
+	public String lsColdReg(HttpServletRequest req, Page<CoolregisterVoCtm> page, String msg,CoolregisterVoCtm coolReg) {
 		if (page == null) {
 			page = new Page<CoolregisterVoCtm>();
 		}
+		page.setPageSize(5);
 		if (coolReg != null) {
 			if (coolReg.getRegist_no() == null) {
 				if (req.getSession().getAttribute(Constant.SESSION_SELENCOLDREG_KEY) != null) {
@@ -65,7 +65,7 @@ public class ColdAction {
 		return lsColdReg(req, page, msg, coolReg);
 	}
 
-//新增订单：包括存放的物品
+    //新增订单：包括存放的物品
 	@ResponseBody
 	@RequestMapping("valiCtm")
 	public CustomerEx valiCtm(String ctm_login) {
@@ -81,7 +81,7 @@ public class ColdAction {
 
 	}
 
-//将订单作废
+    //将订单作废
 	@ResponseBody
 	@RequestMapping("zfCoolReg")
 	public String zfCoolReg(Integer rid) {
@@ -92,7 +92,7 @@ public class ColdAction {
 
 	}
 
-//编辑，按rid加载该订单详情
+    //编辑，按订单id加载该订单详情
 	@ResponseBody
 	@RequestMapping("upCoolReg")
 	public CoolregisterVoCtm upCoolReg(Integer rid) {
@@ -108,8 +108,7 @@ public class ColdAction {
 
 	}
 
-//编辑订单
-
+    //编辑订单
 	@RequestMapping("upCoolReg1")
 	public String upCoolReg1(HttpServletRequest req, Page<CoolregisterVoCtm> page, Coolregister cReg, Goodinfo good) {
 		/*
@@ -123,10 +122,10 @@ public class ColdAction {
 
 	}
 
-	/* 订单 ················································· */
+/* 订单 ················································· */
 
-	/* 入库计划 ················································· */
-//入库计划列表
+/* 入库计划 ················································· */
+    //入库计划列表
 	@RequestMapping("lsEnCold")
 	public String lsEnCold(HttpServletRequest req, Page<CoolregisterVo> page, CoolregisterVo coolEn) {
 		// 表示查出为入库计划
@@ -162,15 +161,15 @@ public class ColdAction {
 		return lsEnCold(req, page, null);
 	}
 
-//新增入库计划
-	// 展示入库计划表
+
+	//展示入库计划表
 	@RequestMapping("showReg")
 	public String showReg(HttpServletRequest req, CoolregisterVo c) {
 
 		req.setAttribute("lsReg", coldBiz.showReg());
 		return "/service/showReg.jsp";
 	}
-
+    //新增入库计划
 	@RequestMapping("addEnCold")
 	public String addEnCold(HttpServletRequest req, CoolregisterVo c, Page<CoolregisterVo> page) {
 
@@ -206,8 +205,9 @@ public class ColdAction {
 		return lsEnCold(req, page, null);
 
 	}
-
-	/* 出库 */
+	
+	
+/* 出库 ·················································*/
 	// 出库计划列表
 	@RequestMapping("lsOutCold")
 	public String lsOutCold(HttpServletRequest req, Page<CoolregisterVo> page, CoolregisterVo coolEn) {
@@ -227,9 +227,7 @@ public class ColdAction {
 		req.setAttribute("arealist", freezeBiz.lsArea());
 		req.setAttribute("cablist", freezeBiz.lsAll());
 		req.setAttribute("delist", freezeBiz.lsDepotCid2());
-
 		req.setAttribute("lsFinEnReg", coldBiz.showFinEnReg());
-
 		req.setAttribute("lsEnCold", coldBiz.lsEnCold(page, coolEn));
 		req.setAttribute("ccslist", coldBiz.findAllCCS());
 
@@ -265,9 +263,11 @@ public class ColdAction {
 		return lsOutCold(req, page, null);
 
 	}
-
-	/* 调度 */
-
+/* 出库 ·················································*/
+	
+	
+/* 调度 ·················································*/
+    
 	@RequestMapping("lsDDCold")
 	public String lsDDCold(HttpServletRequest req, Page<CoolregisterVo> page, CoolregisterVo ddCool) {
 		EmployVo employVo = (EmployVo) req.getSession().getAttribute(Constant.SESSION_USER_KEY);
@@ -289,33 +289,83 @@ public class ColdAction {
 		req.setAttribute("arealist", freezeBiz.lsArea());
 		req.setAttribute("cablist", freezeBiz.lsAll());
 		req.setAttribute("delist", freezeBiz.lsDepotCid2());
-
 		req.setAttribute("lsDDCold", coldBiz.ddSelByEmpId(page, ddCool));
 
 		return "/service/listDDCoolReg.jsp";
 
 	}
 
-//完成入库
-
+    //完成入库
 	@RequestMapping("finshDDCold")
-	public String finshDDCold(HttpServletRequest req, Integer exe_id) {
+	public String finshDDCold(HttpServletRequest req, Integer exe_id,Page<CoolregisterVo> page) {
 		Execute e = new Execute();
 		e.setExe_id(exe_id);
 		e.setExe_end(new Date());
 		coldBiz.finshEnReg(e);
-		return lsDDCold(req, new Page<CoolregisterVo>(), null);
+		return lsDDCold(req, page, null);
 
 	}
-
+    //完成出库
 	@RequestMapping("finshDDOutCold")
-	public String finshDDOutCold(HttpServletRequest req, Integer exe_id) {
+	public String finshDDOutCold(HttpServletRequest req, Integer exe_id,Page<CoolregisterVo> page) {
 		Execute e = new Execute();
 		e.setExe_id(exe_id);
 		e.setExe_end(new Date());
 		coldBiz.finshOutReg(e);
-
-		return lsDDCold(req, new Page<CoolregisterVo>(), null);
+		return lsDDCold(req, page, null);
 
 	}
+	
+/* 调度 ·················································*/	
+	
+/* 缴费 ·················································*/
+	/*缴费列表*/
+	@RequestMapping("lsFinanceReg")
+	public String lsFinanceReg(HttpServletRequest req, Page<CoolregisterVoCtm> page, String msg,CoolregisterVoCtm coolReg) {
+		if (page == null) {
+			page = new Page<CoolregisterVoCtm>();
+		}
+		page.setPageSize(5);
+		if (coolReg != null) {
+			if (coolReg.getRegist_no() == null) {
+				if (req.getSession().getAttribute(Constant.SESSION_SELFINANCEREG_KEY) != null) {
+					coolReg = (CoolregisterVoCtm) req.getSession().getAttribute(Constant.SESSION_SELFINANCEREG_KEY);
+				}
+			} else {
+				req.getSession().setAttribute(Constant.SESSION_SELFINANCEREG_KEY, coolReg);
+
+			}
+		}
+		page.getParams().put("financeRegState", "Y");
+		req.setAttribute("lsColdReg", coldBiz.lsCold(page, coolReg));
+		req.setAttribute("remsg", msg);
+		return "/service/listFinanceReg.jsp";
+
+	}
+	
+	/*按订单id查出与计费相关信息*/
+	@ResponseBody
+	@RequestMapping("calculationReg")
+	public CoolregisterVo calculationReg(Integer rid) {
+		return coldBiz.calculationReg(rid);
+
+	}
+	/*按订单id更新订单金额*/
+	@RequestMapping("calculationReg1")
+	public String calculationReg1(HttpServletRequest req,CoolregisterVo c,Page<CoolregisterVoCtm> page) {	
+		System.out.println(c);
+		coldBiz.calculationReg1(c);
+		return lsFinanceReg(req, page, null, null);
+
+	}
+	
+	@RequestMapping("finshCalculation")
+	public String finshCalculation(HttpServletRequest req,Integer rid,Page<CoolregisterVoCtm> page) {	
+		coldBiz.finshCalculation(rid);
+		return lsFinanceReg(req, page, "完成缴费", null);
+
+	}
+	
+	
+/* 缴费 ·················································*/
 }

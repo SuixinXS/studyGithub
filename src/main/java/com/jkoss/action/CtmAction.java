@@ -29,10 +29,7 @@ public class CtmAction {
 			page = new Page<CustomerEx>();
 		}
 
-		if (c == null) {
-			c = new CustomerEx(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-		}
-
+		if (c != null) {
 		if (c.getCtm_type() == null) {
 			if (req.getSession().getAttribute(Constant.SESSION_SELCSTM_KEY) != null) {
 				c = (CustomerEx) req.getSession().getAttribute(Constant.SESSION_SELCSTM_KEY);
@@ -41,7 +38,7 @@ public class CtmAction {
 		} else {
 			req.getSession().setAttribute(Constant.SESSION_SELCSTM_KEY, c);
 		
-		}
+		}}
 		req.setAttribute("ctmlist", ctmBiz.lsCtmAll(page, c));
 		req.setAttribute("remsg", msg);
 		return "/user/listCtm.jsp";
@@ -49,9 +46,9 @@ public class CtmAction {
 	}
 //客户账号停用
 	@RequestMapping("stopctm")
-	public String stopCtm(HttpServletRequest req, Integer cid,Page<CustomerEx> page) {
+	public String stopCtm(HttpServletRequest req, Integer cid,Page<CustomerEx> page,CustomerEx c) {
 		
-		return lsCtm(req, page, null, ctmBiz.stopCstm(cid));
+		return lsCtm(req, page, c, ctmBiz.stopCstm(cid));
 
 	}
 //客户增加
@@ -72,5 +69,19 @@ public class CtmAction {
 	public String aupCtm(HttpServletRequest req, CustomerEx record,Page<CustomerEx> page) {
 		return lsCtm(req, page, null, ctmBiz.updateByPrimaryKeySelective(record));
 	}
+	
+//查询客户登录名重名
+	@ResponseBody
+	@RequestMapping("checkCtmLogin")
+	public String checkCtmLogin(String loginName) {
+		return ctmBiz.checkCtmLogin(loginName);
 
+	}
+	
+	@ResponseBody
+	@RequestMapping("checkCtmLogin1")
+	public String checkCtmLogin1(Integer ctmId) {
+		return ctmBiz.checkCtmLogin1(ctmId);
+
+	}
 }

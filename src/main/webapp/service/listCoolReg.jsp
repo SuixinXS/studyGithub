@@ -181,7 +181,14 @@
 	    return new Date(); 
 	   } 
 	  }  
-  
+
+	  
+/* 	  function pay(regId,obj){
+		  alert("11");
+		  alert(obj.html());
+		 // alert($(span).parent('td').parent('tr').children('td').eq(0).fadeToggle()); 
+		  alert($(span).parent().find('td').eq(0).html());
+	  } */
    
 </script>
 
@@ -234,7 +241,7 @@
 						<tr align="center" bgcolor="#FFFFFF">
 							<td align="center">${oneCold.regist_no}</td>
 							<td align="center">${oneCold.regist_state==0?'登记':oneCold.regist_state==1?'已安排打冷':oneCold.regist_state==2?'中断':oneCold.regist_state==3?'结束打冷':oneCold.regist_state==4?'作废':'完成'}</td>
-							<td align="center">${oneCold.regist_paystate==1?'已付':'未付'}</td>
+							<td align="center"><span onclick="pay(${oneCold.regist_id},this)" <c:if test="${oneCold.regist_paystate!=1}">style="color: red"</c:if>>${oneCold.regist_paystate==1?'已付':'未付'}</span></td>
 							<td align="center">${oneCold.cooltype==0?'付费打冷':oneCold.cooltype==1?'预付打冷':oneCold.cooltype==2?'后付打冷':'补时'}</td>
 							<td align="center">${oneCold.company_name}</td>
 							<td align="center">${oneCold.ctm_name}</td>
@@ -263,33 +270,68 @@
 					</tr>
 				</table></td>
 		</tr>
-		<tr>
-			<td align="center" style="color: red">${msg}</td>
-		</tr>
+	
 	</table>
-
+	<script type="text/javascript">
+function checkAdd(){
+	var flag=false;
+	$(".addMsg").html("");
+	
+	if($("#upCtmLogin").val()==null ||$("#upCtmLogin").val()=='' ){
+		$("#addMsg1").html("请填输入客户登录名");
+		flag=true; 
+	}
+			
+	if($("#upCtmName").val()==null ||$("#upCtmName").val()=='' ){
+		$("#addMsg2").html("请加载用户信息");
+		flag=true; 
+	}
+	
+	if($("#addBegin").val()==null ||$("#addBegin").val()=='' ){
+		$("#addMsg3").html("请填写委托开始时间");
+		flag=true; 
+	}
+	if($("#addEnd").val()==null ||$("#addEnd").val()=='' ){
+		$("#addMsg4").html("请填写委托结束时间");
+		flag=true; 
+	}
+	if($("#addGoods").val()==null ||$("#addGoods").val()=='' ){
+		$("#addMsg5").html("请填写货物");
+		flag=true; 
+	}
+	
+if(flag){
+	
+	return false;}
+	
+	
+};
+</script>
 
 	<div id="dlg" class="easyui-dialog" title="添加"
 		data-options="iconCls:'icon-save',closed:true,modal:true"
 		style="display: none; width: 400px; height: 300px; padding: 10px; top: 30px">
-		<form action="addColdReg.do">
+		<form action="addColdReg.do" onSubmit="return checkAdd()">
 			<table>
 				<tr>
 					<td>客户登录名</td>
 					<td><input name="ctm_login" data-options="required:true"
-						class="easyui-validatebox" /> <span name="vali" class="btnAll">验证加载</span></td>
+						class="easyui-validatebox" id="upCtmLogin"/> 
+					<span name="vali" class="btnAll">验证加载</span>
+					<span id="addMsg1" class="addMsg" style="color: red"></td>
 				</tr>
 
 				<tr>
-					<td>客户Id</td>
+					<td><!-- 客户Id --></td>
 					<td><input name="ctm_id" data-options="required:true"
 						class="easyui-validatebox" readonly="readonly" type="hidden"/></td>
-				</tr>
+				</tr>  
 
 				<tr>
 					<td>客户名</td>
-					<td><input name="ctm_name" readonly="readonly" /><input name="ctm_id" data-options="required:true"
-						class="easyui-validatebox" readonly="readonly" type="hidden"/></td></td>
+					<td><input id="upCtmName" name="ctm_name" readonly="readonly" />
+					<span id="addMsg2" class="addMsg" style="color: red">
+					</td>
 				</tr>
 
 				<tr>
@@ -305,16 +347,17 @@
 
 				<tr>
 					<td>委托时间</td>
-					<td><input name="regist_begin" class="easyui-datetimebox" style="width:200px" data-options="formatter:ww3,parser:w3"/>
-						
+					<td><input id="addBegin"
+					name="regist_begin" class="easyui-datetimebox" style="width:200px" data-options="formatter:ww3,parser:w3"/>
+						<span id="addMsg3" class="addMsg" style="color: red">
 						</td>
 				</tr>
 
 				<tr>
 					<td>结束时间</td>
 					<td>
-						<input name="regist_end" class="easyui-datetimebox" style="width:200px" data-options="formatter:ww3,parser:w3"/>
-						
+						<input id="addEnd" name="regist_end" class="easyui-datetimebox" style="width:200px" data-options="formatter:ww3,parser:w3"/>
+						<span id="addMsg4" class="addMsg" style="color: red">
 						</td>
 				</tr>
 
@@ -322,8 +365,10 @@
 
 				<tr>
 					<td>货物名</td>
-					<td><input name="good_name" data-options="required:true"
-						class="easyui-validatebox" /></td>
+					<td><input id="addGoods" name="good_name" data-options="required:true"
+						class="easyui-validatebox" />
+						<span id="addMsg5" class="addMsg" style="color: red">
+						</td>
 				</tr>
 				<tr>
 					<td>货物类型</td>
@@ -376,21 +421,21 @@
 
 				</tr>
 
-				<tr>
+		<!-- 		<tr>
 					<td>委托时间</td>
-					<td><input name="regist_begin" class="easyui-datetimebox"
-						class="easyui-validatebox" data-options="required:true"
+					<td><input name="regist_begin" 
+						class="easyui-validatebox"
 						style="width: 100px" data-options="formatter:ww3,parser:w3"
-						data-options="required:true"  readonly="readonly"/></td>
+						  readonly="readonly"/></td>
 				</tr>
 
 				<tr>
 					<td>结束时间</td>
-					<td><input name="regist_end" class="easyui-datetimebox"
-						class="easyui-validatebox" data-options="required:true"
+					<td><input name="regist_end" 
+						class="easyui-validatebox"
 						style="width: 100px" data-options="formatter:ww3,parser:w3"
-						data-options="required:true"  readonly="readonly"/></td>
-				</tr>
+						  readonly="readonly"/></td>
+				</tr> -->
 
 
 

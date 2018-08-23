@@ -107,21 +107,24 @@
 
 		});
 		//修改账号状态
-		$(".lgstate").change(function(event){
-			var r = confirm("是否修改当前账号状态?");
-			if(r==false){
-				event.preventDefault();
+		$(".lgstate").change(function(){
+			var checkValue=$(this).val(); //获取Select选择的Value
+			if(confirm("是否修改当前账号状态?")){
+					$.get("upEpLgState.do?wk_ep_id="+$(this).prop("lang")+"&emp_state="+$(this).val());
+				
 			}
 			else
 			{
-				$.get("upEpLgState.do?wk_ep_id="+$(this).prop("lang")+"&emp_state="+$(this).val(),function(json){
-				});
-				
+				if(checkValue == 1){
+					$(this).val(0);
+				}else{
+					$(this).val(1);
+				}
 			}
 		});
 		//下拉框显示部门选项
 		$("#slctdp").change(function() {
-			alert("lsEp.do?wk_dp_id=" + $(this).val());
+		
 			location.href = "lsEp.do?wk_dp_id=" + $(this).val();
 		});
         //员工姓名查询

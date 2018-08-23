@@ -59,7 +59,9 @@
 	</bean>
 	
     <!-- 容器使用元数据配置事务 -->
-    <tx:annotation-driven transaction-manager="txManager"/>
+    <tx:annotation-driven transaction-manager="txManager"
+    proxy-target-class="true"
+    />
     
      
     

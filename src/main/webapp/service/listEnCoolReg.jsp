@@ -399,7 +399,7 @@ function checkAdd(){
 	});
 	
 if(flag){
-	/* $("#addMsg").html("地址重复5"); */
+
 	return false;}
 	
 	
@@ -414,7 +414,7 @@ if(flag){
 
 				<tr>
 					<td>订单编号<a href="/jk_freezer/service/showReg.do"
-						target="_blank">/订单显示</a></td>
+						target="_blank" style="color: red">/订单显示</a></td>
 					<td><select name="regist_id">
 							<c:forEach items="${lsReg1}" var="oneReg">
 								<option value="${oneReg.regist_id}">${oneReg.regist_no}</option>
@@ -437,7 +437,7 @@ if(flag){
 				</tr>
 				<tr>
 					<td>卡位<a href="/jk_freezer/resource/showCab.do"
-						target="_blank">/卡位显示</a>
+						target="_blank" style="color: red">/卡位显示</a>
 					</td>
 					<td>
 						<select id="selbycabin" name="cab_id">

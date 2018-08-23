@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jkoss.dao.CabinMapper;
 import com.jkoss.dao.CoolregisterMapper;
@@ -45,30 +46,33 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	CabinMapper cabinDao;
 
 //订单
+	@Transactional
 	public List<CoolregisterVoCtm> lsCold(Page<CoolregisterVoCtm> page, CoolregisterVoCtm coolReg) {
 		// TODO Auto-generated method stub
 
 		// 对数据进行处理，日期加一天
-		if (coolReg.getRegist_begin() != null) {
-			Calendar c = Calendar.getInstance();
-			c.setTime(coolReg.getRegist_begin());
-			c.add(Calendar.DAY_OF_MONTH, 1);
-			Date tomorrow = c.getTime();
-			page.getParams().put("tomorrow", tomorrow);
+		if (coolReg != null) {
+			if (coolReg.getRegist_begin() != null) {
+				Calendar c = Calendar.getInstance();
+				c.setTime(coolReg.getRegist_begin());
+				c.add(Calendar.DAY_OF_MONTH, 1);
+				Date tomorrow = c.getTime();
+				page.getParams().put("tomorrow", tomorrow);
 
-			/*
-			 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			 * System.out.println("输入的时间加一天"+sdf.format(tomorrow));
-			 */
+				/*
+				 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				 * System.out.println("输入的时间加一天"+sdf.format(tomorrow));
+				 */
+			}
+			page.getParams().put("regist_begin", coolReg.getRegist_begin());
+			page.getParams().put("regist_no", coolReg.getRegist_no());
+			page.getParams().put("regist_state", coolReg.getRegist_state());
 		}
-		page.getParams().put("regist_begin", coolReg.getRegist_begin());
-		page.getParams().put("regist_no", coolReg.getRegist_no());
-		page.getParams().put("regist_state", coolReg.getRegist_state());
-
 		return coolRegDao.lsCold(page);
 	}
 
 	@Override
+	@Transactional
 	public String addColdReg(Coolregister cReg, Goodinfo good) {
 		coolRegDao.insertSelective(cReg);
 		good.setRegist_id(cReg.getRegist_id());
@@ -124,6 +128,7 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	}
 
 	@Override
+	@Transactional
 	public String addEnCold(CoolregisterVo c) {
 		// TODO Auto-generated method stub
 		Execute e = new Execute();
@@ -133,7 +138,6 @@ public class ColdRegImplBiz implements IColdRegBiz {
 		// 将信息增加到出入库计划表
 		Random rand = new Random();
 		e.setJg_name("R" + rand.nextInt(1000) + "K" + rand.nextInt(100));
-	
 
 		exeDao.insertSelective(e);
 		// 将信息存入计划-员工关联表（调度）
@@ -159,6 +163,7 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	}
 
 	@Override
+	@Transactional
 	public String upEnCold2(CoolregisterVo c) {
 		// TODO Auto-generated method stub
 		// 删除仓库。重新添加
@@ -184,6 +189,7 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	}
 
 	@Override
+	@Transactional
 	public String delEnCold(Integer eid) {
 		// TODO Auto-generated method stub
 		// 查出关于该计划的信息
@@ -222,6 +228,7 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	}
 
 	@Override
+	@Transactional
 	public String addOutColdReg(Integer regist_id, Integer emp_id) {
 		// TODO Auto-generated method stub
 		Execute e = new Execute();
@@ -239,6 +246,7 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	}
 
 	@Override
+	@Transactional
 	public String delOutColdReg(Integer exe_id) {
 		// TODO Auto-generated method stub
 		exeDao.delExe2Emp(exe_id);
@@ -281,6 +289,7 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	}
 
 	@Override
+	@Transactional
 	public String finshOutReg(Execute e) {
 		// TODO Auto-generated method stub
 		// 更新调度计划表
@@ -310,11 +319,11 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	public String valiDepAddress(int cid, String dAddress) {
 		// TODO Auto-generated method stub
 
-		Cabin cab= cabinDao.selectByPrimaryKey(cid);
-		if(cab.getCab_size()< Integer.parseInt(dAddress)) {
+		Cabin cab = cabinDao.selectByPrimaryKey(cid);
+		if (cab.getCab_size() < Integer.parseInt(dAddress)) {
 			return "没有该地址";
 		}
-		if(depotDao.valiDepAddress(cid, dAddress)!=null) {
+		if (depotDao.valiDepAddress(cid, dAddress) != null) {
 			return "仓库已存在";
 		}
 		return "可用";
@@ -324,6 +333,35 @@ public class ColdRegImplBiz implements IColdRegBiz {
 	public List<CoolregisterVo> showFinEnReg() {
 		// TODO Auto-generated method stub
 		return coolRegDao.showFinEnReg();
+	}
+
+	@Override
+	public CoolregisterVo calculationReg(Integer regid) {
+		// TODO Auto-generated method stub
+		return coolRegDao.selGoodReg(regid);
+	}
+
+	@Override
+	public String calculationReg1(CoolregisterVo c) {
+		// TODO Auto-generated method stub
+		Coolregister record = new Coolregister();
+		record.setRegist_id(c.getRegist_id());
+		record.setRegist_cost(c.getRegist_cost());
+        System.out.println(record);
+		if (coolRegDao.updateByPrimaryKeySelective(record) > 0) {
+			return "修改成功";
+		}
+		return "修改失败";
+	}
+
+	@Override
+	public String finshCalculation(Integer rid) {
+		// TODO Auto-generated method stub
+		Coolregister record = new Coolregister();
+		record.setRegist_id(rid);
+		record.setRegist_paystate(1);
+		coolRegDao.updateByPrimaryKeySelective(record);
+		return null;
 	}
 
 }

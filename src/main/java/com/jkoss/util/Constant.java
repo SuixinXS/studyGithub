@@ -23,4 +23,7 @@ public class Constant {
     
     //存放调度计划分页条件
     public static final String SESSION_SELDDCOLD_KEY="selDdCold";
+    
+    //存放财务分页条件
+    public static final String SESSION_SELFINANCEREG_KEY="selfinanceReg";
 }

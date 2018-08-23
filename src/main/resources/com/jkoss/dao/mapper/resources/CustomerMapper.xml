@@ -200,6 +200,17 @@
 
 
 
+<select id="selectByLoginName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from customer
+		where ctm_login = #{ctm_login,jdbcType=INTEGER}
+	</select>
+
+
+
+
 	<select id="lsCtmAll" parameterType="com.jkoss.tool.Page"
 		resultType="com.jkoss.pojo.vo.CustomerEx">
 		select a.*,b.ctm_type,b.pay_type from customer as a left join

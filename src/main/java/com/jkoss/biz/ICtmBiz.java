@@ -14,5 +14,6 @@ public interface ICtmBiz {
 	CustomerEx selCtmById(Integer cid);
 	String updateByPrimaryKeySelective(CustomerEx record);
 
-
+    String checkCtmLogin(String ctm_login);
+    String checkCtmLogin1(Integer ctmId);
 }

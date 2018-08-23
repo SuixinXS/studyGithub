@@ -34,7 +34,7 @@ public interface CoolregisterMapper {
 
 	CoolregisterVo enCold1(Integer eid);
 
-	@Update("update coolregister set area_id=null,cab_id=null,dep_id=null where 	regist_id=#{rid}")
+	@Update("update coolregister set area_id=null,cab_id=null,dep_id=null where regist_id=#{rid}")
 	int upCrg(@Param("rid") int rid);
 
 	CoolregisterVo enColdByRid(Integer rid);
@@ -47,5 +47,8 @@ public interface CoolregisterMapper {
 
 	@Select("select a.* from coolregister as a left join execute as b on a.regist_id=b.regist_id where b.exe_id=#{eid}")
 	CoolregisterVo finshOutReg1(@Param("eid") Integer eid);
+	
+	//根据regist_id查goodinfo表的name和type，coolreg表的所有
+	CoolregisterVo selGoodReg(Integer regid);
 
 }

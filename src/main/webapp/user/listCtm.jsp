@@ -57,8 +57,8 @@
   };
   
   function stopCtm(id){
-	  confirm("是否停用该客户");
-	  window.location.href = "stopctm.do?cid="+id;
+	  if(confirm("是否停用该客户")){
+	  window.location.href = "stopctm.do?cid="+id;}
   }; 
   
   
@@ -102,38 +102,41 @@
 			<td bgcolor="#FFFFFF"><table width="96%" border="0"
 					align="center" cellpadding="4" cellspacing="1" bgcolor="#aec3de">
 					<tr align="left" bgcolor="#F2FDFF">
-						<td colspan="10" class="optiontitle">客户管理
-						 	
-				
-						<select id="selType" name="company_type">
-								<option>未选择客户类型</option>							
-									<option value="0" ${sessionScope.selCustomerEx.company_type==0?'selected':''}>私人</option>
-									<option value="1" ${sessionScope.selCustomerEx.company_type==1?'selected':''}>公司</option>			
+						<td colspan="10" class="optiontitle">客户管理 <select
+							id="selType" name="company_type">
+								<option>未选择客户类型</option>
+								<option value="0"
+									${sessionScope.selCustomerEx.company_type==0?'selected':''}>私人</option>
+								<option value="1"
+									${sessionScope.selCustomerEx.company_type==1?'selected':''}>公司</option>
+						</select> <select id="selState" name="ctm_state">
+								<option>未选择账号状态</option>
+								<option value="0"
+									${sessionScope.selCustomerEx.ctm_state==0?'selected':''}>不可用</option>
+								<option value="1"
+									${sessionScope.selCustomerEx.ctm_state==1?'selected':''}>可用</option>
+						</select> <select id="selGrade" name="ctm_type">
+								<option>未选择客户等级</option>
+								<option value="0"
+									${sessionScope.selCustomerEx.ctm_type==0?'selected':''}>普通</option>
+								<option value="1"
+									${sessionScope.selCustomerEx.ctm_type==1?'selected':''}>大客户</option>
+								<option value="2"
+									${sessionScope.selCustomerEx.ctm_type==2?'selected':''}>VIP</option>
+						</select> <select id="selPay" name="pay_type">
+								<option>未选择客户支付方式</option>
+								<option value="0"
+									${sessionScope.selCustomerEx.pay_type==0?'selected':''}>非月结</option>
+								<option value="1"
+									${sessionScope.selCustomerEx.pay_type==1?'selected':''}>月结</option>
+
 						</select>
-						<select id="selState" name="ctm_state">
-								<option>未选择账号状态</option>							
-									<option value="0" ${sessionScope.selCustomerEx.ctm_state==0?'selected':''}>不可用</option>
-									<option value="1" ${sessionScope.selCustomerEx.ctm_state==1?'selected':''}>可用</option>			
-						</select>
-						<select id="selGrade" name="ctm_type">
-								<option>未选择客户等级</option>							
-									<option value="0" ${sessionScope.selCustomerEx.ctm_type==0?'selected':''}>普通</option>
-									<option value="1" ${sessionScope.selCustomerEx.ctm_type==1?'selected':''}>大客户</option>		
-									<option value="2" ${sessionScope.selCustomerEx.ctm_type==2?'selected':''}>VIP</option>			
-						</select>
-						
-							<select id="selPay" name="pay_type">
-								<option>未选择客户支付方式</option>							
-									<option value="0" ${sessionScope.selCustomerEx.pay_type==0?'selected':''}>非月结</option>
-									<option value="1" ${sessionScope.selCustomerEx.pay_type==1?'selected':''}>月结</option>		
-									
-						</select>
-						<button onclick="selCtm()">查询</button> 
-						<button onclick="cleaSelBox()">清空</button> 
-				
-						
+							<button onclick="selCtm()">查询</button>
+							<button onclick="cleaSelBox()">清空</button>
+
+
 						</td>
-						
+
 					</tr>
 					<tr align="center">
 						<td align="center" bgcolor="#ebf0f7">客户名</td>
@@ -172,7 +175,8 @@
 
 					<tr align="right" bgcolor="#ebf0f7">
 						<td colspan="10"><jk:page totalPage="${page.totalPage}"
-								pageNo="${page.pageNo}" totalRecord="${page.totalRecord}" url="lsctm.do" /></td>
+								pageNo="${page.pageNo}" totalRecord="${page.totalRecord}"
+								url="lsctm.do" /></td>
 					</tr>
 				</table></td>
 		</tr>
@@ -180,30 +184,94 @@
 			<td align="center" style="color: red">${msg}</td>
 		</tr>
 	</table>
+	<script type="text/javascript">
+function checkAdd(){
+	var flag=false;
+	$(".addMsg").html("");
+	if($("#addName").val()==null ||$("#addName").val()=='' ){
+		$("#addMsg1").html("请填输入客户名");
+		flag=true; 
+	}
+	
+	
+	if($("#addCompanyType").val()==1){
+	if($("#addCompanyName").val()==null ||$("#addCompanyName").val()=='' ){
+		$("#addMsg2").html("请填写公司名或改为私人状态");
+		flag=true; 
+	}
+	}
+	
+	if($("#addPhone").val()==null ||$("#addPhone").val()=='' ){
+		$("#addMsg3").html("请填输入客户电话");
+		flag=true; 
+	}
+	
+	
+	if($("#addLogin").val()==null ||$("#addLogin").val()=='' ){
+		$("#addMsg4").html("请填输入客户账号登录名");
+		flag=true; 
+	}
+	
+	
+	if($("#addPass").val()==null ||$("#addPass").val()=='' ){
+		$("#addMsg5").html("请填输入客户账号密码");
+		flag=true; 
+	}
+	
+	
+	
+	
+	
 
+	$.ajax({
+		type : "post",
+		url : "checkCtmLogin.do?loginName=" + $("#addLogin").val(),
+		dataType : "json",
+		async:false,
+		success : function(json) {
+        if(json=="重名"){
+        	$("#addMsg4").html("该登录名已存在");
+        	flag=true;        	
+        }		
+		},
+
+	});
+
+if(flag){
+	
+	return false;}
+	
+	
+};
+</script>
 	<div id="dlg" class="easyui-dialog" title="添加用户信息"
 		data-options="iconCls:'icon-save',closed:true,modal:true"
 		style="display: none; width: 400px; height: 300px; padding: 10px; top: 30px">
-		<form action="addctm.do">
+		<form action="addctm.do" onSubmit="return checkAdd()">
 			<table>
 				<tr>
 					<td>客户名</td>
-					<td><input name="ctm_name" /></td>
+					<td><input id="addName" name="ctm_name" />
+					<span id="addMsg1" class="addMsg" style="color: red">
+					</td>
 				</tr>
 				<tr>
 					<td>客户类型</td>
-					<td><select name="company_type">
+					<td><select name="company_type" id="addCompanyType">
 							<option value="0">私人</option>
 							<option value="1">公司</option>
 					</select></td>
 				</tr>
 				<tr>
 					<td>公司名</td>
-					<td><input name="company_name" /></td>
+					<td><input name="company_name" id="addCompanyName"/>
+					<span id="addMsg2" class="addMsg" style="color: red">
+					</td>
 				</tr>
 				<tr>
 					<td>客户电话</td>
-					<td><input name="ctm_phone" /></td>
+					<td><input name="ctm_phone" id="addPhone"/>
+					<span id="addMsg3" class="addMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>客户识别码</td>
@@ -218,15 +286,19 @@
 				</tr>
 				<tr>
 					<td>客户登陆名</td>
-					<td><input name="ctm_login" /></td>
+					<td><input name="ctm_login" id="addLogin"/>
+					
+					<span id="addMsg4" class="addMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>客户登陆密码</td>
-					<td><input name="ctm_pass" /></td>
+					<td><input name="ctm_pass" id="addPass"/>
+					<span id="addMsg5" class="addMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>客户地址</td>
-					<td><input name="ctm_address" /></td>
+					<td><input name="ctm_address" id="addAddress"/>
+					</td>
 				</tr>
 				<tr>
 					<td>客户账号等级</td>
@@ -250,30 +322,104 @@
 			</table>
 		</form>
 	</div>
+	<script type="text/javascript">
+function checkUp(){
+	var flag=false;
+	var login=null;
+	$(".upMsg").html("");
+	if($("#upName").val()==null ||$("#upName").val()=='' ){
+		$("#upMsg1").html("请填输入客户名");
+		flag=true; 
+	}
+	
+	
+	if($("#upCompanyType").val()==1){
+	if($("#upCompanyName").val()==null ||$("#upCompanyName").val()=='' ){
+		$("#upMsg2").html("请填写公司名或改为私人状态");
+		flag=true; 
+	}
+	}
+	
+	if($("#upPhone").val()==null ||$("#upPhone").val()=='' ){
+		$("#upMsg3").html("请填输入客户电话");
+		flag=true; 
+	}
+	
+	
+	if($("#upCtmLogin").val()==null ||$("#upCtmLogin").val()=='' ){
+		$("#upMsg4").html("请填输入客户账号登录名");
+		flag=true; 
+	}
+	
+	
+	if($("#upCtmPass").val()==null ||$("#upCtmPass").val()=='' ){
+		$("#upMsg5").html("请填输入客户账号密码");
+		flag=true; 
+	}
+	
+	//按id查登录名
+	$.ajax({
+		type : "post",
+		url : "checkCtmLogin1.do?ctmId=" + $("#upCtmId").val(),
+		dataType : "json",
+		async:false,
+		success : function(json) {
+			login=json;
+		},
 
-<div id="dlg2" class="easyui-dialog" title="编辑用户信息"
+	});
+	console.log(login);
+	if(login!=$("#upCtmLogin").val() && $("#upCtmLogin").val()!=''){
+
+	$.ajax({
+		type : "post",
+		url : "checkCtmLogin.do?loginName=" + $("#upCtmLogin").val(),
+		dataType : "json",
+		async:false,
+		success : function(json) {
+        if(json=="重名"){
+        	$("#upMsg4").html("该登录名已存在");
+        	flag=true;        	
+        }		
+		},
+
+	});}
+
+if(flag){
+	
+	return false;}
+	
+	
+};
+</script>
+	<div id="dlg2" class="easyui-dialog" title="编辑用户信息"
 		data-options="iconCls:'icon-save',closed:true,modal:true"
 		style="display: none; width: 400px; height: 300px; padding: 10px; top: 30px">
-		<form action="upctm.do">
+		<form action="upctm.do" onSubmit="return checkUp()">
 			<table>
 				<tr>
 					<td>客户名</td>
-					<td><input name="ctm_name" /><input name="ctm_id" type="hidden"/></td>
+					<td><input name="ctm_name" id="upName"/>
+					<span id="upMsg1" class="addMsg" style="color: red">
+					<input name="ctm_id"
+						type="hidden" id="upCtmId"/></td>
 				</tr>
 				<tr>
 					<td>客户类型</td>
-					<td><select name="company_type">
+					<td><select name="company_type" id="upCompanyType">
 							<option value="0">私人</option>
 							<option value="1">公司</option>
 					</select></td>
 				</tr>
 				<tr>
 					<td>公司名</td>
-					<td><input name="company_name" /></td>
+					<td><input name="company_name" id="upCompanyName"/>
+					<span id="upMsg2" class="upMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>客户电话</td>
-					<td><input name="ctm_phone" /></td>
+					<td><input name="ctm_phone" id="upPhone"/>
+					<span id="upMsg3" class="upMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>客户识别码</td>
@@ -281,18 +427,20 @@
 				</tr>
 				<tr>
 					<td>客户账号状态</td>
-					<td><select  name="ctm_state">
+					<td><select name="ctm_state">
 							<option value="0">不可用</option>
 							<option value="1">可用</option>
 					</select></td>
 				</tr>
 				<tr>
 					<td>客户登陆名</td>
-					<td><input name="ctm_login" /></td>
+					<td><input name="ctm_login" id="upCtmLogin"/>
+					<span id="upMsg4" class="upMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>客户登陆密码</td>
-					<td><input name="ctm_pass" /></td>
+					<td><input name="ctm_pass" id="upCtmPass"/>
+					<span id="upMsg5" class="upMsg" style="color: red"></td>
 				</tr>
 				<tr>
 					<td>客户地址</td>

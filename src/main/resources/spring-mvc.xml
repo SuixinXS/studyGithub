@@ -85,9 +85,7 @@
          <mvc:mapping path="/sys/*.do"/>
          <mvc:mapping path="/user/*.do"/>
          <mvc:mapping path="/service/*.do"/>
-       
-        
-            
+           
          <bean class="com.jkoss.interceptor.PriInterceptor">
              <property name="passed">
                <list>

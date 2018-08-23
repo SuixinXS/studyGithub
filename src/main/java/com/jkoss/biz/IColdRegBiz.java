@@ -48,4 +48,9 @@ public interface IColdRegBiz {
     List<CoolregisterVo>ddSelByEmpId(Page<CoolregisterVo> page,CoolregisterVo ddCool);
 	String finshEnReg(Execute e);
 	String finshOutReg(Execute e);
+	
+//缴费
+	CoolregisterVo calculationReg(Integer regid);	
+	String calculationReg1(CoolregisterVo record);
+	String finshCalculation(Integer rid);
 }
